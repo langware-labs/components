@@ -1,0 +1,11 @@
+/node_modules/
+/lib/
+/test/
+custom-elements.json
+# top level source
+code-snippet.js
+code-snippet.js.map
+code-snippet.d.ts
+code-snippet.d.ts.map
+# only generated for size check
+code-snippet.bundled.js
