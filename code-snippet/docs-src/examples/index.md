@@ -12,8 +12,7 @@ description: A basic example
     padding: 8px;
   }
 </style>
-<code-snippet>
-  <p>This is child content</p>
+<code-snippet htmlCode="<p>Hello, world!</p>" jsCode="console.log('Hello, world!');" cssCode="p { color: red; }">
 </code-snippet>
 
 <h3>CSS</h3>
@@ -28,7 +27,10 @@ p {
 <h3>HTML</h3>
 
 ```html
-<code-snippet>
-  <p>This is child content</p>
+<code-snippet
+  htmlCode="<p>Hello, world!</p>"
+  jsCode="console.log('Hello, world!');"
+  cssCode="p { color: red; }"
+>
 </code-snippet>
 ```

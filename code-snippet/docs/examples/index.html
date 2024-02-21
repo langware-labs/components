@@ -38,10 +38,6 @@
                     <a href="">A basic example</a>
                   </li>
                 
-                  <li class=>
-                    <a href="name-property/">Setting the name property</a>
-                  </li>
-                
         </ul>
       </nav>
       <div>
@@ -51,13 +47,12 @@
     padding: 8px;
   }
 </style>
-<code-snippet>
-  <p>This is child content</p>
+<code-snippet htmlCode="<p>Hello, world!</p>" jsCode="console.log('Hello, world!');" cssCode="p { color: red; }">
 </code-snippet>
 <h3>CSS</h3>
 <pre class="language-css"><code class="language-css"><span class="token selector">p</span> <span class="token punctuation">{</span><br>  <span class="token property">border</span><span class="token punctuation">:</span> solid 1px blue<span class="token punctuation">;</span><br>  <span class="token property">padding</span><span class="token punctuation">:</span> 8px<span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
 <h3>HTML</h3>
-<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code-snippet</span><span class="token punctuation">></span></span><br>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>This is child content<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code-snippet</span><span class="token punctuation">></span></span></code></pre>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code-snippet</span><br>  <span class="token attr-name">htmlCode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&lt;p>Hello, world!&lt;/p><span class="token punctuation">"</span></span><br>  <span class="token attr-name">jsCode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>console.log('Hello, world!');<span class="token punctuation">"</span></span><br>  <span class="token attr-name">cssCode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>p { color: red; }<span class="token punctuation">"</span></span><br><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code-snippet</span><span class="token punctuation">></span></span></code></pre>
 
       </div>
     </section>
