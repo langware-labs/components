@@ -1,12 +1,13 @@
 import {LitElement, html, css} from 'lit';
-import {customElement, property, state } from 'lit/decorators.js';
-import { EditorState } from '@codemirror/state';
-import { EditorView, keymap, highlightActiveLine } from '@codemirror/view';
-import { defaultKeymap } from '@codemirror/commands';
-import { html as htmlLang } from '@codemirror/lang-html';
-import { javascript as jsLang } from '@codemirror/lang-javascript';
-import { css as cssLang } from '@codemirror/lang-css';
-import { oneDark } from '@codemirror/theme-one-dark';
+import {customElement, property, state} from 'lit/decorators.js';
+import {EditorState, Compartment} from '@codemirror/state';
+import {EditorView, keymap, highlightActiveLine} from '@codemirror/view';
+import {defaultKeymap} from '@codemirror/commands';
+import {html as htmlLang} from '@codemirror/lang-html';
+import {javascript as jsLang} from '@codemirror/lang-javascript';
+import {css as cssLang} from '@codemirror/lang-css';
+import {oneDark} from '@codemirror/theme-one-dark';
+import {basicSetup} from 'codemirror';
 
 @customElement('code-snippet')
 export class CodeSnippet extends LitElement {
@@ -17,6 +18,7 @@ export class CodeSnippet extends LitElement {
   @state() selectedTab = 'html'; // Possible values: 'html', 'js', 'css'
   private editorView?: EditorView;
   private editorParentNode?: HTMLElement;
+  private languageCompartment = new Compartment();
 
   static override styles = css`
     :host {
@@ -47,7 +49,9 @@ export class CodeSnippet extends LitElement {
   `;
 
   override firstUpdated() {
-    this.editorParentNode = this.shadowRoot?.querySelector('.code-editor-container') as HTMLElement;
+    this.editorParentNode = this.shadowRoot?.querySelector(
+      '.code-editor-container'
+    ) as HTMLElement;
     if (this.editorParentNode) {
       this.initializeEditor(this.selectedTab);
     }
@@ -58,10 +62,11 @@ export class CodeSnippet extends LitElement {
       doc: this.getCodeForMode(mode),
       extensions: [
         keymap.of(defaultKeymap),
+        basicSetup,
         highlightActiveLine(),
         oneDark,
-        this.getLanguageExtension(mode),
-        EditorView.updateListener.of(update => {
+        this.languageCompartment.of(this.getLanguageExtension(mode)),
+        EditorView.updateListener.of((update) => {
           if (update.docChanged) {
             const code = update.state.doc.toString();
             switch (this.selectedTab) {
@@ -76,13 +81,13 @@ export class CodeSnippet extends LitElement {
                 break;
             }
           }
-        })
+        }),
       ],
     });
 
     this.editorView = new EditorView({
       state: startState,
-      parent: this.editorParentNode
+      parent: this.editorParentNode,
     });
   }
 
@@ -114,13 +119,15 @@ export class CodeSnippet extends LitElement {
 
   override updated(changedProperties: Map<string | number | symbol, unknown>) {
     if (changedProperties.has('selectedTab') && this.editorView) {
-      // const extension = this.getLanguageExtension(this.selectedTab);
-      // const updateState = this.editorView.state.update({
-      //   effects: EditorState.reconfigure({ extensions: [extension] })
-      // });
-      // this.editorView.update([updateState]);
       this.editorView.dispatch({
-        changes: { from: 0, to: this.editorView.state.doc.length, insert: this.getCodeForMode(this.selectedTab) }
+        changes: {
+          from: 0,
+          to: this.editorView.state.doc.length,
+          insert: this.getCodeForMode(this.selectedTab),
+        },
+        effects: this.languageCompartment.reconfigure(
+          this.getLanguageExtension(this.selectedTab)
+        ),
       });
     }
   }
@@ -134,7 +141,9 @@ export class CodeSnippet extends LitElement {
   }
 
   runCode() {
-    const iframe = this.shadowRoot?.querySelector('iframe') as HTMLIFrameElement;
+    const iframe = this.shadowRoot?.querySelector(
+      'iframe'
+    ) as HTMLIFrameElement;
     if (iframe) {
       const doc = iframe.contentDocument || iframe.contentWindow?.document;
       if (doc) {
@@ -150,9 +159,21 @@ export class CodeSnippet extends LitElement {
   override render() {
     return html`
       <div @click="${this.selectTab}">
-        <span class="tab ${this.selectedTab === 'html' ? 'active' : ''}" data-tab="html">HTML</span>
-        <span class="tab ${this.selectedTab === 'js' ? 'active' : ''}" data-tab="js">JS</span>
-        <span class="tab ${this.selectedTab === 'css' ? 'active' : ''}" data-tab="css">CSS</span>
+        <span
+          class="tab ${this.selectedTab === 'html' ? 'active' : ''}"
+          data-tab="html"
+          >HTML</span
+        >
+        <span
+          class="tab ${this.selectedTab === 'js' ? 'active' : ''}"
+          data-tab="js"
+          >JS</span
+        >
+        <span
+          class="tab ${this.selectedTab === 'css' ? 'active' : ''}"
+          data-tab="css"
+          >CSS</span
+        >
       </div>
       <div class="code-editor-container"></div>
       <button @click="${this.runCode}">Run</button>
