@@ -1,0 +1,71 @@
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><code-snippet> ⌲ Examples ⌲ JS init</title>
+    <link rel="stylesheet" href="../../docs.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600|Roboto+Mono">
+    <link href="../../prism-okaidia.css" rel="stylesheet" />
+    <script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="/node_modules/lit/polyfill-support.js"></script>
+    <script type="module" src="../../code-snippet.bundled.js"></script>
+  </head>
+  <body>
+    
+<header>
+  <h1>&lt;code-snippet></h1>
+  <h2>A web component just for me.</h2>
+</header>
+    
+<nav>
+  <a href="../../">Home</a>
+  <a href="../">Examples</a>
+  <a href="../../api/">API</a>
+  <a href="../../install/">Install</a>
+</nav>
+    <div id="main-wrapper">
+      <main>
+        
+    <h1>Example: JS init</h1>
+    <section class="examples">
+      <nav class="collection">
+        <ul>
+          
+                  <li class=>
+                    <a href="../">A basic example</a>
+                  </li>
+                
+                  <li class=selected>
+                    <a href="">Init thourgh code</a>
+                  </li>
+                
+        </ul>
+      </nav>
+      <div>
+        <script>
+  const codeSnippet = document.createElement('code-snippet');
+  codeSnippet.htmlCode = '<h1>Hello World</h1>';
+  codeSnippet.jsCode = "console.log('Hello from JS');";
+  codeSnippet.cssCode = 'h1 { color: blue; }';
+  document.body.appendChild(codeSnippet);
+</script>
+<h3>Javascript</h3>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> codeSnippet <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'code-snippet'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>codeSnippet<span class="token punctuation">.</span>htmlCode <span class="token operator">=</span> <span class="token string">'&lt;h1>Hello World&lt;/h1>'</span><span class="token punctuation">;</span><br>codeSnippet<span class="token punctuation">.</span>jsCode <span class="token operator">=</span> <span class="token string">"console.log('Hello from JS');"</span><span class="token punctuation">;</span><br>codeSnippet<span class="token punctuation">.</span>cssCode <span class="token operator">=</span> <span class="token string">'h1 { color: blue; }'</span><span class="token punctuation">;</span><br>document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>codeSnippet<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+      </div>
+    </section>
+  
+      </main>
+    </div>
+    
+<footer>
+  <p>
+    Made with
+    <a href="https://github.com/lit/lit-element-starter-ts">lit-starter-ts</a>
+  </p>
+</footer>
+  </body>
+</html>
