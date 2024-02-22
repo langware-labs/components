@@ -47,13 +47,24 @@
       <div>
         <script>
   const codeSnippet = document.createElement('code-snippet');
-  codeSnippet.htmlCode = '<h1>Hello World</h1>';
-  codeSnippet.jsCode = "console.log('Hello from JS');";
-  codeSnippet.cssCode = 'h1 { color: blue; }';
+  codeSnippet.data  = `[
+    {
+      "content": "<h1>Hello World</h1>",
+      "type": "text/html"
+    },
+    {
+      "content": "h1 { color: blue; }",
+      "type": "text/css"
+    },
+    {
+      "content": "console.log('Hello from JS');",
+      "type": "application/javascript"
+    }
+  ]`;
   document.body.appendChild(codeSnippet);
 </script>
 <h3>Javascript</h3>
-<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> codeSnippet <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'code-snippet'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>codeSnippet<span class="token punctuation">.</span>htmlCode <span class="token operator">=</span> <span class="token string">'&lt;h1>Hello World&lt;/h1>'</span><span class="token punctuation">;</span><br>codeSnippet<span class="token punctuation">.</span>jsCode <span class="token operator">=</span> <span class="token string">"console.log('Hello from JS');"</span><span class="token punctuation">;</span><br>codeSnippet<span class="token punctuation">.</span>cssCode <span class="token operator">=</span> <span class="token string">'h1 { color: blue; }'</span><span class="token punctuation">;</span><br>document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>codeSnippet<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> codeSnippet <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'code-snippet'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>codeSnippet<span class="token punctuation">.</span>data  <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">[<br>  {<br>    "content": "&lt;h1>Hello World&lt;/h1>",<br>    "type": "text/html"<br>  },<br>  {<br>    "content": "h1 { color: blue; }",<br>    "type": "text/css"<br>  },<br>  {<br>    "content": "console.log('Hello from JS');",<br>    "type": "application/javascript"<br>  }<br>]</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span><br>document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>codeSnippet<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
       </div>
     </section>

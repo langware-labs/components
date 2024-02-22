@@ -8,9 +8,20 @@ description: Init thourgh code
 
 <script>
   const codeSnippet = document.createElement('code-snippet');
-  codeSnippet.htmlCode = '<h1>Hello World</h1>';
-  codeSnippet.jsCode = "console.log('Hello from JS');";
-  codeSnippet.cssCode = 'h1 { color: blue; }';
+  codeSnippet.data  = `[
+    {
+      "content": "<h1>Hello World</h1>",
+      "type": "text/html"
+    },
+    {
+      "content": "h1 { color: blue; }",
+      "type": "text/css"
+    },
+    {
+      "content": "console.log('Hello from JS');",
+      "type": "application/javascript"
+    }
+  ]`;
   document.body.appendChild(codeSnippet);
 </script>
 
@@ -18,8 +29,19 @@ description: Init thourgh code
 
 ```javascript
 const codeSnippet = document.createElement('code-snippet');
-codeSnippet.htmlCode = '<h1>Hello World</h1>';
-codeSnippet.jsCode = "console.log('Hello from JS');";
-codeSnippet.cssCode = 'h1 { color: blue; }';
+codeSnippet.data  = `[
+  {
+    "content": "<h1>Hello World</h1>",
+    "type": "text/html"
+  },
+  {
+    "content": "h1 { color: blue; }",
+    "type": "text/css"
+  },
+  {
+    "content": "console.log('Hello from JS');",
+    "type": "application/javascript"
+  }
+]`;
 document.body.appendChild(codeSnippet);
 ```

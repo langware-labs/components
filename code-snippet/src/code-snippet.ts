@@ -11,9 +11,10 @@ import {basicSetup} from 'codemirror';
 
 @customElement('code-snippet')
 export class CodeSnippet extends LitElement {
-  @property() htmlCode = '';
-  @property() jsCode = '';
-  @property() cssCode = '';
+  @property() data = '';
+  private htmlCode = '';
+  private jsCode = '';
+  private cssCode = '';
 
   @state() selectedTab = 'html'; // Possible values: 'html', 'js', 'css'
   private editorView?: EditorView;
@@ -49,6 +50,8 @@ export class CodeSnippet extends LitElement {
   `;
 
   override firstUpdated() {
+    const data = JSON.parse(this.data);
+    data.forEach((item: { type: string, content: string }) => this.setCodeForType(item.type, item.content));
     this.editorParentNode = this.shadowRoot?.querySelector(
       '.code-editor-container'
     ) as HTMLElement;
@@ -114,6 +117,20 @@ export class CodeSnippet extends LitElement {
         return this.cssCode;
       default:
         return '';
+    }
+  }
+
+  setCodeForType(type: string, content: string) {
+    switch (type) {
+      case 'text/html':
+        this.htmlCode = content;
+        break;
+      case 'application/javascript':
+        this.jsCode = content;
+        break;
+      case 'text/css':
+        this.cssCode = content;
+        break;
     }
   }
 

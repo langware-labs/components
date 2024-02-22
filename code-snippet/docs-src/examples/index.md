@@ -13,9 +13,20 @@ description: A basic example
   }
 </style>
 <code-snippet
-  htmlCode="<p>Hello, world!</p>"
-  jsCode="console.log('Hello, world!');"
-  cssCode="p { color: red; }">
+  data = '[
+  {
+    "content": "<h1>Hello World</h1>",
+    "type": "text/html"
+  },
+  {
+    "content": "h1 { color: blue; }",
+    "type": "text/css"
+  },
+  {
+    "content": "console.log(\"Hello from JS\");",
+    "type": "application/javascript"
+  }
+]'>
 </code-snippet>
 
 <h3>CSS</h3>
@@ -31,8 +42,19 @@ p {
 
 ```html
 <code-snippet
-  htmlCode="<p>Hello, world!</p>"
-  jsCode="console.log('Hello, world!');"
-  cssCode="p { color: red; }">
+  data  = '[
+  {
+    "content": "<h1>Hello World</h1>",
+    "type": "text/html"
+  },
+  {
+    "content": "h1 { color: blue; }",
+    "type": "text/css"
+  },
+  {
+    "content": "console.log(\"Hello from JS\");",
+    "type": "application/javascript"
+  }
+]'>
 </code-snippet>
 ```

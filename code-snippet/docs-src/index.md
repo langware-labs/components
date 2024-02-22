@@ -34,45 +34,43 @@ title: <code-snippet> ⌲ Home
 `<code-snippet>` can be configured with attributed in plain HTML.
 
 ```html
-<code-snippet htmlCode="<p>Hello, world!</p>" jsCode="console.log('Hello, world!');" cssCode="p { color: red; }"></code-snippet>
+<code-snippet
+  data = '[
+    {
+      "content": "<h1>Hello World</h1>",
+      "type": "text/html"
+    },
+    {
+      "content": "h1 { color: blue; }",
+      "type": "text/css"
+    },
+    {
+      "content": "console.log(\"Hello from JS\");",
+      "type": "application/javascript"
+    }
+  ]'>
+</code-snippet>
 ```
 
   </div>
   <div>
 
-<code-snippet htmlCode="<p>Hello, world!</p>" jsCode="console.log('Hello, world!');" cssCode="p { color: red; }"></code-snippet>
-
-  </div>
-</section>
-
-## Declarative rendering
-
-<section class="columns">
-  <div>
-
-`<code-snippet>` can be used with declarative rendering libraries like Angular, React, Vue, and lit-html
-
-```js
-import {html, render} from 'lit-html';
-
-const htmlCode = "<p>Hello, world!</p>";
-const jsCode = "console.log('Hello, world!');"
-const cssCode = "p { color: red; }";
-
-render(
-  html`
-    <h2>This is a &lt;code-snippet&gt;</h2>
-    <code-snippet .htmlCode=${htmlCode} .jsCode=${jsCode} .cssCode=${cssCode}></code-snippet>
-  `,
-  document.body
-);
-```
-
-  </div>
-  <div>
-
-<h2>This is a &lt;code-snippet&gt;</h2>
-<code-snippet htmlCode="<p>Hello, world!</p>" jsCode="console.log('Hello, world!');" cssCode="p { color: red; }"></code-snippet>
+  <code-snippet
+    data = '[
+      {
+        "content": "<h1>Hello World</h1>",
+        "type": "text/html"
+      },
+      {
+        "content": "h1 { color: blue; }",
+        "type": "text/css"
+      },
+      {
+        "content": "console.log(\"Hello from JS\");",
+        "type": "application/javascript"
+      }
+    ]'>
+  </code-snippet>
 
   </div>
 </section>
