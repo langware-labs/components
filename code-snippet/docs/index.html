@@ -44,17 +44,17 @@
 <section class="columns">
   <div>
 <p><code>&lt;code-snippet&gt;</code> can be configured with attributed in plain HTML.</p>
-<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code-snippet</span><br>  <span class="token attr-name">data</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">'</span>[<br>    {<br>      "content": "&lt;h1>Hello World&lt;/h1>",<br>      "type": "text/html"<br>    },<br>    {<br>      "content": "h1 { color: blue; }",<br>      "type": "text/css"<br>    },<br>    {<br>      "content": "console.log(\"Hello from JS\");",<br>      "type": "application/javascript"<br>    }<br>  ]<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code-snippet</span><span class="token punctuation">></span></span></code></pre>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code-snippet</span><br>  <span class="token attr-name">data</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">'</span>[<br>    {<br>      "content": "&lt;h1>\\n  Hello World\\n&lt;/h1>",<br>      "type": "text/html"<br>    },<br>    {<br>      "content": "h1\\n{\n  color: blue;\n}",<br>      "type": "text/css"<br>    },<br>    {<br>      "content": "console.log(\"Hello from JS\");",<br>      "type": "application/javascript"<br>    }<br>  ]<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code-snippet</span><span class="token punctuation">></span></span></code></pre>
   </div>
   <div>
 <p><code-snippet
     data = '[
       {
-        "content": "<h1>Hello World</h1>",
+        "content": "<h1>\\n  Hello World\\n</h1>",
         "type": "text/html"
       },
       {
-        "content": "h1 { color: blue; }",
+        "content": "h1\\n{\n  color: blue;\n}",
         "type": "text/css"
       },
       {

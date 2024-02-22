@@ -37,11 +37,11 @@ title: <code-snippet> ⌲ Home
 <code-snippet
   data = '[
     {
-      "content": "<h1>Hello World</h1>",
+      "content": "<h1>\\n  Hello World\\n</h1>",
       "type": "text/html"
     },
     {
-      "content": "h1 { color: blue; }",
+      "content": "h1\\n{\n  color: blue;\n}",
       "type": "text/css"
     },
     {
@@ -58,11 +58,11 @@ title: <code-snippet> ⌲ Home
   <code-snippet
     data = '[
       {
-        "content": "<h1>Hello World</h1>",
+        "content": "<h1>\\n  Hello World\\n</h1>",
         "type": "text/html"
       },
       {
-        "content": "h1 { color: blue; }",
+        "content": "h1\\n{\n  color: blue;\n}",
         "type": "text/css"
       },
       {

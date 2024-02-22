@@ -121,15 +121,16 @@ export class CodeSnippet extends LitElement {
   }
 
   setCodeForType(type: string, content: string) {
+    const poorlyPrettierContent = content.replaceAll('\\n', '\n');
     switch (type) {
       case 'text/html':
-        this.htmlCode = content;
+        this.htmlCode = poorlyPrettierContent;
         break;
       case 'application/javascript':
-        this.jsCode = content;
+        this.jsCode = poorlyPrettierContent;
         break;
       case 'text/css':
-        this.cssCode = content;
+        this.cssCode = poorlyPrettierContent;
         break;
     }
   }
