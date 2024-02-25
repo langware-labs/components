@@ -3,9 +3,11 @@ import {customElement, property, state} from 'lit/decorators.js';
 import {EditorState, Compartment} from '@codemirror/state';
 import {EditorView, keymap, highlightActiveLine} from '@codemirror/view';
 import {defaultKeymap} from '@codemirror/commands';
+import {StreamLanguage } from "@codemirror/language";
 import {html as htmlLang} from '@codemirror/lang-html';
 import {javascript as jsLang} from '@codemirror/lang-javascript';
-import {css as cssLang} from '@codemirror/lang-css';
+import {css as cssLang } from '@codemirror/lang-css';
+import {shell as shellLang} from '@codemirror/legacy-modes/mode/shell';
 import {oneDark} from '@codemirror/theme-one-dark';
 import {basicSetup} from 'codemirror';
 
@@ -15,8 +17,9 @@ export class CodeSnippet extends LitElement {
   private htmlCode = '';
   private jsCode = '';
   private cssCode = '';
+  private xShCode = '';
 
-  @state() selectedTab = 'html'; // Possible values: 'html', 'js', 'css'
+  @state() selectedTab = 'html'; // Possible values: 'html', 'js', 'css', 'x-sh'
   private editorView?: EditorView;
   private editorParentNode?: HTMLElement;
   private languageCompartment = new Compartment();
@@ -68,6 +71,7 @@ export class CodeSnippet extends LitElement {
         highlightActiveLine(),
         oneDark,
         this.languageCompartment.of(this.getLanguageExtension(mode)),
+        StreamLanguage.define(shellLang),
         EditorView.updateListener.of((update) => {
           if (update.docChanged) {
             const code = update.state.doc.toString();
@@ -80,6 +84,9 @@ export class CodeSnippet extends LitElement {
                 break;
               case 'css':
                 this.cssCode = code;
+                break;
+              case 'x-sh':
+                this.xShCode = code;
                 break;
             }
           }
@@ -101,6 +108,8 @@ export class CodeSnippet extends LitElement {
         return jsLang();
       case 'css':
         return cssLang();
+      // case 'x-sh':
+      //   return shellLang();
       default:
         return [];
     }
@@ -114,6 +123,8 @@ export class CodeSnippet extends LitElement {
         return this.jsCode;
       case 'css':
         return this.cssCode;
+      case 'x-sh':
+        return this.xShCode;
       default:
         return '';
     }
@@ -129,6 +140,9 @@ export class CodeSnippet extends LitElement {
         break;
       case 'text/css':
         this.cssCode = content;
+        break;
+      case 'application/x-sh':
+        this.xShCode = content;
         break;
     }
   }
@@ -156,7 +170,7 @@ export class CodeSnippet extends LitElement {
     }
   }
 
-  runCode() {
+  async runCode() {
     const iframeDom = this.shadowRoot?.querySelector(
       'iframe'
     ) as HTMLIFrameElement;
@@ -167,10 +181,27 @@ export class CodeSnippet extends LitElement {
       if (doc) {
         doc.open();
         doc.write(this.htmlCode);
-        doc.write('<style>' + this.cssCode + '</style>');
-        doc.write('<script>' + this.jsCode + '</script>');
+        doc.write(`<style>${this.cssCode}</style>`);
+        doc.write(`<script>${this.jsCode}</script>`);
+        doc.write(`<pre style="text-align: left;">${await this.executeShell(this.xShCode)}</pre>`);
         doc.close();
       }
+    }
+  }
+
+  private async executeShell(command: string) {
+    try {
+      const response = await fetch('http://localhost:5000/execute', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ command }),
+      });
+      const data = await response.json();
+      return `<h3>x-sh result:</h3><br/>returnCode: ${data.returnCode}<br/>stdout:<br/>${data.stdOut}<br/>stderr:<br/>${data.stdErr}<br/>`;
+    } catch (error) {
+      return 'error: ' + error;
     }
   }
 
@@ -191,6 +222,11 @@ export class CodeSnippet extends LitElement {
           class="tab ${this.selectedTab === 'css' ? 'active' : ''}"
           data-tab="css"
           >CSS</span
+        >
+        <span
+          class="tab ${this.selectedTab === 'x-sh' ? 'active' : ''}"
+          data-tab="x-sh"
+          >x-sh</span
         >
       </div>
       <div class="code-editor-container"></div>
