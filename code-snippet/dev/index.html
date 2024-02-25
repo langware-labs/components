@@ -17,16 +17,7 @@
   <body>
     <script>
       const codeSnippet = document.createElement('code-snippet');
-      codeSnippet.data  = `[
-          {
-            "content": "&lt!DOCTYPE html&gt\\n&lthtml&gt\\n&lthead&gt\\n&lttitle&gtSimple Counter App&lt/title&gt\\n&ltstyle&gt\\n#counter {\\n text-align: center;\\n font-size: 50px;\\n margin-top: 20%;\\n}\\n&lt/style&gt\\n&lt/head&gt\\n&ltbody&gt\\n&ltbutton onclick=&aposincrement()&apos&gt+&lt/button&gt\\n&ltdiv id=&aposcounter&apos&gt0&lt/div&gt\\n&ltbutton onclick=&aposdecrement()&apos&gt-&lt/button&gt\\n&ltscript src=&aposapp.js&apos&gt&lt/script&gt\\n&lt/body&gt\\n&lt/html&gt\\n",
-            "type": "text/html"
-          },
-          {
-            "content": "var count = 0;\\nfunction increment() {\\n count += 1;\\n document.getElementById('counter').innerText = count;\\n}\\nfunction decrement() {\\n if (count > 0) {\\n  count -= 1;\\n }\\n document.getElementById('counter').innerText = count;\\n}",
-            "type": "application/javascript"
-          }
-        ]`;
+      codeSnippet.data  =  `[{\"content\":\"<!DOCTYPE html>\\n<html>\\n<head>\\n    <title>Counter App</title>\\n</head>\\n<body>\\n    <h1 id='counter'>0</h1>\\n    <button id='increase'>Increase</button>\\n    <button id='decrease'>Decrease</button>\\n    <button id='reset'>Reset</button>\\n</body>\\n</html>\",\"type\":\"text/html\"},{\"content\":\"body {\\n    text-align: center;\\n    font-family: Arial, sans-serif;\\n}\\n\\nh1 {\\n    font-size: 60px;\\n}\\n\\nbutton {\\n    margin: 10px;\\n    padding: 10px;\\n    font-size: 18px;\\n}\",\"type\":\"text/css\"},{\"content\":\"let counter = 0;\\n\\nconst counterElement = document.getElementById('counter');\\nconst increaseButton = document.getElementById('increase');\\nconst decreaseButton = document.getElementById('decrease');\\nconst resetButton = document.getElementById('reset');\\n\\nincreaseButton.addEventListener('click', function() {\\n    counter++;\\n    counterElement.innerText = counter;\\n});\\n\\ndecreaseButton.addEventListener('click', function() {\\n    counter--;\\n    counterElement.innerText = counter;\\n});\\n\\nresetButton.addEventListener('click', function() {\\n    counter = 0;\\n    counterElement.innerText = counter;\\n});\",\"type\":\"application/javascript\"}]`
       document.body.appendChild(codeSnippet);
     </script>          
   </body>

@@ -40,7 +40,6 @@ export class CodeSnippet extends LitElement {
     }
     .code-editor-container {
       border: 1px solid #ccc;
-      height: 200px;
       margin-top: -1px;
     }
     .result {
@@ -120,9 +119,7 @@ export class CodeSnippet extends LitElement {
     }
   }
 
-  setCodeForType(type: string, escapedContent: string) {
-    const content = this.htmlUnescape(escapedContent);
-    
+  setCodeForType(type: string, content: string) {
     switch (type) {
       case 'text/html':
         this.htmlCode = content;
@@ -160,10 +157,12 @@ export class CodeSnippet extends LitElement {
   }
 
   runCode() {
-    const iframe = this.shadowRoot?.querySelector(
+    const iframeDom = this.shadowRoot?.querySelector(
       'iframe'
     ) as HTMLIFrameElement;
-    if (iframe) {
+    if (iframeDom) {
+      const iframe = document.createElement('iframe');
+      iframeDom.replaceWith(iframe);
       const doc = iframe.contentDocument || iframe.contentWindow?.document;
       if (doc) {
         doc.open();
@@ -200,24 +199,6 @@ export class CodeSnippet extends LitElement {
         <iframe></iframe>
       </div>
     `;
-  }
-
-  htmlEscape(str: string) {
-    return str
-        .replace(/&/g, '&amp')
-        .replace(/'/g, '&apos')
-        .replace(/"/g, '&quot')
-        .replace(/>/g, '&gt')   
-        .replace(/</g, '&lt');    
-  }
-
-  htmlUnescape(str: string) {
-    return str
-        .replace(/&amp/g, '&')
-        .replace(/&apos/g, "'")
-        .replace(/&quot/g, '"')
-        .replace(/&gt/g, '>')   
-        .replace(/&lt/g, '<');    
   }
 }
 
