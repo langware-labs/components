@@ -120,7 +120,9 @@ export class CodeSnippet extends LitElement {
     }
   }
 
-  setCodeForType(type: string, content: string) {    
+  setCodeForType(type: string, escapedContent: string) {
+    const content = this.htmlUnescape(escapedContent);
+    
     switch (type) {
       case 'text/html':
         this.htmlCode = content;
@@ -198,6 +200,24 @@ export class CodeSnippet extends LitElement {
         <iframe></iframe>
       </div>
     `;
+  }
+
+  htmlEscape(str: string) {
+    return str
+        .replace(/&/g, '&amp')
+        .replace(/'/g, '&apos')
+        .replace(/"/g, '&quot')
+        .replace(/>/g, '&gt')   
+        .replace(/</g, '&lt');    
+  }
+
+  htmlUnescape(str: string) {
+    return str
+        .replace(/&amp/g, '&')
+        .replace(/&apos/g, "'")
+        .replace(/&quot/g, '"')
+        .replace(/&gt/g, '>')   
+        .replace(/&lt/g, '<');    
   }
 }
 
