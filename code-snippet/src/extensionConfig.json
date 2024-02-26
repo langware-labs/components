@@ -1,0 +1,8 @@
+{
+  "jsComponentUrl": "https://langware-labs.github.io/components/code-snippet.bundled.js",
+  "schema": {
+    "url": "https://raw.githubusercontent.com/langware-labs/components/main/code-snippet/src/schema.json",
+    "prompt": "prettify the provided code snippets"
+  },
+  "validatorUrl": "https://github.io/non-existing-yet-validator.py"
+}
