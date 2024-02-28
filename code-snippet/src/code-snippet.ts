@@ -14,7 +14,7 @@ import {basicSetup} from 'codemirror';
 
 @customElement('code-snippet')
 export class CodeSnippet extends LitElement {
-  @property() data = '';
+  @property({ type: Array }) data = [];
   
   private htmlCode = '';
   private jsCode = '';
@@ -55,8 +55,7 @@ export class CodeSnippet extends LitElement {
   `;
 
   override firstUpdated() {
-    const data = JSON.parse(this.data);
-    data.forEach((item: { type: string, content: string }) => this.setCodeForType(item.type, item.content));
+    this.data.forEach((item: { type: string, content: string }) => this.setCodeForType(item.type, item.content));
     this.editorParentNode = this.shadowRoot?.querySelector(
       '.code-editor-container'
     ) as HTMLElement;
