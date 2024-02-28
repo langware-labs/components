@@ -1,5 +1,4 @@
 {
-  "$id": "https://raw.githubusercontent.com/langware-labs/components/main/code-snippet/src/extensionConfig.json",
   "title": "code-snippet, edit and execute",
   "description": "A web component to display code snippets and allows to execute them in the browser",
   "model": {
