@@ -1,8 +1,14 @@
 {
-  "jsComponentUrl": "https://langware-labs.github.io/components/code-snippet.bundled.js",
-  "schema": {
-    "url": "https://raw.githubusercontent.com/langware-labs/components/main/code-snippet/src/schema.json",
-    "prompt": "prettify the provided code snippets"
+  "$id": "https://raw.githubusercontent.com/langware-labs/components/main/code-snippet/src/extensionConfig.json",
+  "title": "code-snippet, edit and execute",
+  "description": "A web component to display code snippets and allows to execute them in the browser",
+  "model": {
+    "$schema": "https://raw.githubusercontent.com/langware-labs/components/main/code-snippet/src/schema.json",
+    "prompt": "The result array should be splitted by programming language. Prettify the provided code elements. Escape new lines."
   },
-  "validatorUrl": "https://github.io/non-existing-yet-validator.py"
+  "view": {
+    "importPath": "https://langware-labs.github.io/components/code-snippet.bundled.js",
+    "webComponentName": "code-snippet",
+    "webComponentAttributeName": "data"
+  }
 }

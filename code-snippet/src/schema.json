@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "id": "https://raw.githubusercontent.com/langware-labs/components/main/code-snippet/src/schema.json",
+  "$id": "https://raw.githubusercontent.com/langware-labs/components/main/code-snippet/src/schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "code-snippet",
   "description": "A code snippet",
   "type": "array",
