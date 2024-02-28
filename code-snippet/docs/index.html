@@ -30,41 +30,39 @@
       <main>
         <h1>&lt;code-snippet&gt;</h1>
 <p><code>&lt;code-snippet&gt;</code> is an awesome element. It's a great introduction to building web components with LitElement, with nice documentation site as well.</p>
-<h2>As easy as HTML</h2>
+<h2>Configure with JS</h2>
 <section class="columns">
   <div>
-<p><code>&lt;code-snippet&gt;</code> is just an HTML element. You can it anywhere you can use HTML!</p>
-<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code-snippet</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code-snippet</span><span class="token punctuation">></span></span></code></pre>
-  </div>
-  <div>
-<p><code-snippet></code-snippet></p>
+<p><code>&lt;code-snippet&gt;</code> can be configured with JS.</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript"><br>  <span class="token keyword">const</span> codeSnippet <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'code-snippet'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  codeSnippet<span class="token punctuation">.</span>data  <span class="token operator">=</span>  <span class="token punctuation">[</span><br>    <span class="token punctuation">{</span><br>      <span class="token string-property property">"content"</span><span class="token operator">:</span> <span class="token string">"&lt;h1>\\n  Hello World\\n&lt;/h1>"</span><span class="token punctuation">,</span><br>      <span class="token string-property property">"type"</span><span class="token operator">:</span> <span class="token string">"text/html"</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token punctuation">{</span><br>      <span class="token string-property property">"content"</span><span class="token operator">:</span> <span class="token string">"h1\\n{\n  color: blue;\n}"</span><span class="token punctuation">,</span><br>      <span class="token string-property property">"type"</span><span class="token operator">:</span> <span class="token string">"text/css"</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token punctuation">{</span><br>      <span class="token string-property property">"content"</span><span class="token operator">:</span> <span class="token string">"console.log(\"Hello from JS\");"</span><span class="token punctuation">,</span><br>      <span class="token string-property property">"type"</span><span class="token operator">:</span> <span class="token string">"application/javascript"</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token punctuation">{</span><br>      <span class="token string-property property">"content"</span><span class="token operator">:</span> <span class="token string">"import math\\nprint(math.sqrt(16))\\nprint(\"Hello, World!\")"</span><span class="token punctuation">,</span><br>      <span class="token string-property property">"type"</span><span class="token operator">:</span> <span class="token string">"text/x-python"</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token punctuation">{</span> <br>      <span class="token string-property property">"content"</span><span class="token operator">:</span> <span class="token string">"ls"</span><span class="token punctuation">,</span> <br>      <span class="token string-property property">"type"</span><span class="token operator">:</span> <span class="token string">"application/x-sh"</span><br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">]</span><span class="token punctuation">;</span><br>  document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>codeSnippet<span class="token punctuation">)</span><span class="token punctuation">;</span><br></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span></code></pre>
   </div>
 </section>
-<h2>Configure with attributes</h2>
-<section class="columns">
-  <div>
-<p><code>&lt;code-snippet&gt;</code> can be configured with attributed in plain HTML.</p>
-<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code-snippet</span><br>  <span class="token attr-name">data</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">'</span>[<br>    {<br>      "content": "&lt;h1>\\n  Hello World\\n&lt;/h1>",<br>      "type": "text/html"<br>    },<br>    {<br>      "content": "h1\\n{\n  color: blue;\n}",<br>      "type": "text/css"<br>    },<br>    {<br>      "content": "console.log(\"Hello from JS\");",<br>      "type": "application/javascript"<br>    }<br>  ]<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code-snippet</span><span class="token punctuation">></span></span></code></pre>
-  </div>
-  <div>
-<p><code-snippet
-    data = '[
-      {
-        "content": "<h1>\\n  Hello World\\n</h1>",
-        "type": "text/html"
-      },
-      {
-        "content": "h1\\n{\n  color: blue;\n}",
-        "type": "text/css"
-      },
-      {
-        "content": "console.log(\"Hello from JS\");",
-        "type": "application/javascript"
-      }
-    ]'>
-</code-snippet></p>
-  </div>
-</section>
+<script>
+  const codeSnippet = document.createElement('code-snippet');
+  codeSnippet.data  =  [
+    {
+      "content": "<h1>\\n  Hello World\\n</h1>",
+      "type": "text/html"
+    },
+    {
+      "content": "h1\\n{\n  color: blue;\n}",
+      "type": "text/css"
+    },
+    {
+      "content": "console.log(\"Hello from JS\");",
+      "type": "application/javascript"
+    },
+    {
+      "content": "import math\\nprint(math.sqrt(16))\\nprint(\"Hello, World!\")",
+      "type": "text/x-python"
+    },
+    { 
+      "content": "ls", 
+      "type": "application/x-sh"
+    }
+  ];
+  document.body.appendChild(codeSnippet);
+</script>   
 
       </main>
     </div>

@@ -7,35 +7,17 @@ title: <code-snippet> ⌲ Home
 
 `<code-snippet>` is an awesome element. It's a great introduction to building web components with LitElement, with nice documentation site as well.
 
-## As easy as HTML
+## Configure with JS
 
 <section class="columns">
   <div>
 
-`<code-snippet>` is just an HTML element. You can it anywhere you can use HTML!
+`<code-snippet>` can be configured with JS.
 
 ```html
-<code-snippet></code-snippet>
-```
-
-  </div>
-  <div>
-
-<code-snippet></code-snippet>
-
-  </div>
-</section>
-
-## Configure with attributes
-
-<section class="columns">
-  <div>
-
-`<code-snippet>` can be configured with attributed in plain HTML.
-
-```html
-<code-snippet
-  data = '[
+<script>
+  const codeSnippet = document.createElement('code-snippet');
+  codeSnippet.data  =  [
     {
       "content": "<h1>\\n  Hello World\\n</h1>",
       "type": "text/html"
@@ -47,30 +29,45 @@ title: <code-snippet> ⌲ Home
     {
       "content": "console.log(\"Hello from JS\");",
       "type": "application/javascript"
+    },
+    {
+      "content": "import math\\nprint(math.sqrt(16))\\nprint(\"Hello, World!\")",
+      "type": "text/x-python"
+    },
+    { 
+      "content": "ls", 
+      "type": "application/x-sh"
     }
-  ]'>
-</code-snippet>
+  ];
+  document.body.appendChild(codeSnippet);
+</script>
 ```
 
   </div>
-  <div>
-
-  <code-snippet
-    data = '[
-      {
-        "content": "<h1>\\n  Hello World\\n</h1>",
-        "type": "text/html"
-      },
-      {
-        "content": "h1\\n{\n  color: blue;\n}",
-        "type": "text/css"
-      },
-      {
-        "content": "console.log(\"Hello from JS\");",
-        "type": "application/javascript"
-      }
-    ]'>
-  </code-snippet>
-
-  </div>
 </section>
+<script>
+  const codeSnippet = document.createElement('code-snippet');
+  codeSnippet.data  =  [
+    {
+      "content": "<h1>\\n  Hello World\\n</h1>",
+      "type": "text/html"
+    },
+    {
+      "content": "h1\\n{\n  color: blue;\n}",
+      "type": "text/css"
+    },
+    {
+      "content": "console.log(\"Hello from JS\");",
+      "type": "application/javascript"
+    },
+    {
+      "content": "import math\\nprint(math.sqrt(16))\\nprint(\"Hello, World!\")",
+      "type": "text/x-python"
+    },
+    { 
+      "content": "ls", 
+      "type": "application/x-sh"
+    }
+  ];
+  document.body.appendChild(codeSnippet);
+</script>   
