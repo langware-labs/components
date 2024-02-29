@@ -80,18 +80,23 @@ const Ot={attribute:!0,type:String,converter:S,reflect:!1,hasChanged:m},nt=(t=Ot
       padding: 10px;
       border: 1px solid #ccc;
       display: inline-block;
-      background-color: #f9f9f9;
+      
+      color: light-dark(black, white);
+      background-color: light-dark(#f9f9f9, #090909);
     }
     .tab.active {
-      background-color: #fff;
+      background-color: light-dark(white, black);
       border-bottom: none;
     }
     .code-editor-container {
-      border: 1px solid #ccc;
+      border: 1px solid;
       margin-top: -1px;
     }
     .result {
-      border: 1px solid #ccc;
       margin-top: 20px;
+    }
+    iframe {
+      width: 100%;
+      border: none;
     }
   `,e$([ot({type:Array})],i$.prototype,"data",void 0),e$([function(t){return ot({...t,state:!0,attribute:!1})}()],i$.prototype,"selectedTab",void 0),i$=e$([(t=>(e,i)=>{void 0!==i?i.addInitializer((()=>{customElements.define(t,e)})):customElements.define(t,e)})("code-snippet")],i$);export{i$ as CodeSnippet};

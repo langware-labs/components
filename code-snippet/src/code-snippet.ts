@@ -38,19 +38,24 @@ export class CodeSnippet extends LitElement {
       padding: 10px;
       border: 1px solid #ccc;
       display: inline-block;
-      background-color: #f9f9f9;
+      
+      color: light-dark(black, white);
+      background-color: light-dark(#f9f9f9, #090909);
     }
     .tab.active {
-      background-color: #fff;
+      background-color: light-dark(white, black);
       border-bottom: none;
     }
     .code-editor-container {
-      border: 1px solid #ccc;
+      border: 1px solid;
       margin-top: -1px;
     }
     .result {
-      border: 1px solid #ccc;
       margin-top: 20px;
+    }
+    iframe {
+      width: 100%;
+      border: none;
     }
   `;
 
