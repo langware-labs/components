@@ -1,0 +1,13 @@
+{
+  "title": "shell-script, edit and execute",
+  "description": "A web component to display shell script snippet and allows to execute it in the browser",
+  "model": {
+    "$schema": "https://raw.githubusercontent.com/langware-labs/components/main/shell-script/src/schema.json",
+    "prompt": "Prettify the provided script.\nUse escape character for new lines."
+  },
+  "view": {
+    "importPath": "https://langware-labs.github.io/components/shell-script/shell-script.bundled.js",
+    "webComponentName": "shell-script",
+    "webComponentAttributeName": "data"
+  }
+}

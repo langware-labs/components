@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>&lt;shell-script> Demo</title>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../node_modules/lit/polyfill-support.js"></script>
+    <script type="module" src="../shell-script.js"></script>
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+      p {
+        border: solid 1px blue;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>         
+    <script>
+      const pythonScript = document.createElement('shell-script');
+      pythonScript.data  =  {
+        "content": "import math\\nprint(math.sqrt(16))\\nprint(\"Hello, World!\")",
+        "type": "python"
+      };
+      document.body.appendChild(pythonScript);
+    </script>          
+    <script>
+      const shellScript = document.createElement('shell-script');
+      shellScript.data  =  {
+        "content": "ls", 
+        "type": "bash"
+      };
+      document.body.appendChild(shellScript);
+    </script>
+  </body>
+  </html>
