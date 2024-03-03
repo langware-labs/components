@@ -1,0 +1,67 @@
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><shell-script> ⌲ Home</title>
+    <link rel="stylesheet" href="docs.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600|Roboto+Mono">
+    <link href="prism-okaidia.css" rel="stylesheet" />
+    <script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="/node_modules/lit/polyfill-support.js"></script>
+    <script type="module" src="shell-script.bundled.js"></script>
+  </head>
+  <body>
+    
+<header>
+  <h1>&lt;shell-script></h1>
+  <h2>A web component just for me.</h2>
+</header>
+    
+<nav>
+  <a href="">Home</a>
+  <a href="examples/">Examples</a>
+  <a href="api/">API</a>
+  <a href="install/">Install</a>
+</nav>
+    <div id="main-wrapper">
+      <main>
+        <h1>&lt;shell-script&gt;</h1>
+<p><code>&lt;shell-script&gt;</code> is an awesome element. It's a great introduction to building web components with LitElement, with nice documentation site as well.</p>
+<h2>Configure with JS</h2>
+<section class="columns">
+  <div>
+<p><code>&lt;shell-script&gt;</code> can be configured with JS.</p>
+<pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript"><br>  <span class="token keyword">const</span> pythonScript <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'shell-script'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  pythonScript<span class="token punctuation">.</span>data  <span class="token operator">=</span>  <span class="token punctuation">{</span><br>    <span class="token string-property property">"content"</span><span class="token operator">:</span> <span class="token string">"import math\\nprint(math.sqrt(16))\\nprint(\"Hello, World!\")"</span><span class="token punctuation">,</span><br>    <span class="token string-property property">"type"</span><span class="token operator">:</span> <span class="token string">"python"</span><br>  <span class="token punctuation">}</span><span class="token punctuation">;</span><br>  document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>pythonScript<span class="token punctuation">)</span><span class="token punctuation">;</span><br></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>          <br><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript"><br>  <span class="token keyword">const</span> shellScript <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'shell-script'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>  shellScript<span class="token punctuation">.</span>data  <span class="token operator">=</span>  <span class="token punctuation">{</span><br>    <span class="token string-property property">"content"</span><span class="token operator">:</span> <span class="token string">"ls"</span><span class="token punctuation">,</span> <br>    <span class="token string-property property">"type"</span><span class="token operator">:</span> <span class="token string">"bash"</span><br>  <span class="token punctuation">}</span><span class="token punctuation">;</span><br>  document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>shellScript<span class="token punctuation">)</span><span class="token punctuation">;</span><br></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>   </code></pre>
+  </div>
+</section>
+<script>
+  const pythonScript = document.createElement('shell-script');
+  pythonScript.data  =  {
+    "content": "import math\\nprint(math.sqrt(16))\\nprint(\"Hello, World!\")",
+    "type": "python"
+  };
+  document.body.appendChild(pythonScript);
+</script>          
+<script>
+  const shellScript = document.createElement('shell-script');
+  shellScript.data  =  {
+    "content": "ls", 
+    "type": "bash"
+  };
+  document.body.appendChild(shellScript);
+</script>   
+
+      </main>
+    </div>
+    
+<footer>
+  <p>
+    Made with
+    <a href="https://github.com/lit/lit-element-starter-ts">lit-starter-ts</a>
+  </p>
+</footer>
+  </body>
+</html>
