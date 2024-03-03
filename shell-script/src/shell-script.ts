@@ -107,7 +107,7 @@ export class ShellScript extends LitElement {
         break;
       }
       case 'python': {
-        const escapedCode = this.shellCode.replaceAll('"', '\\"').replaceAll('\n', '; ');
+        const escapedCode = this.shellCode.replaceAll('"', '\\"');
         command = `python -c "${escapedCode}"`;
         break;
       }
@@ -124,7 +124,7 @@ export class ShellScript extends LitElement {
       });
       const data = await response.json();
       
-      if (data.returnCode === 0 && (data.stderr === undefined || data.stderr === '')) {
+      if (data.returnCode === 0 && data.stdout && (data.stderr === undefined || data.stderr === '')) {
         return data.stdout;
       }
       return 'returnCode: ' + data.returnCode +
