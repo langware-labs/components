@@ -3,12 +3,9 @@ import {customElement, property, state} from 'lit/decorators.js';
 import {EditorState, Compartment} from '@codemirror/state';
 import {EditorView, keymap, highlightActiveLine} from '@codemirror/view';
 import {defaultKeymap} from '@codemirror/commands';
-import {StreamLanguage } from "@codemirror/language";
 import {html as htmlLang} from '@codemirror/lang-html';
-import {python as pythonLang} from '@codemirror/lang-python';
 import {javascript as jsLang} from '@codemirror/lang-javascript';
 import {css as cssLang } from '@codemirror/lang-css';
-import {shell as shellLang} from '@codemirror/legacy-modes/mode/shell';
 import {oneDark} from '@codemirror/theme-one-dark';
 import {basicSetup} from 'codemirror';
 
@@ -19,10 +16,8 @@ export class CodeSnippet extends LitElement {
   private htmlCode = '';
   private jsCode = '';
   private cssCode = '';
-  private pythonCode = '';
-  private xShCode = '';
 
-  @state() selectedTab = 'html'; // Possible values: 'html', 'js', 'css', 'python', 'x-sh'
+  @state() selectedTab = 'html'; // Possible values: 'html', 'js', 'css'
   private editorView?: EditorView;
   private editorParentNode?: HTMLElement;
   private languageCompartment = new Compartment();
@@ -30,12 +25,13 @@ export class CodeSnippet extends LitElement {
   static override styles = css`
     :host {
       display: block;
-      margin: auto;
+      margin: auto auto 20px;
       width: 80%;
     }
     .tab {
       cursor: pointer;
-      padding: 10px;
+      padding: 2px 10px;
+      margin: 0px;
       border: 1px solid #ccc;
       display: inline-block;
       
@@ -46,16 +42,24 @@ export class CodeSnippet extends LitElement {
       background-color: light-dark(white, black);
       border-bottom: none;
     }
-    .code-editor-container {
+    .code-block {
+      position: relative;
       border: 1px solid;
-      margin-top: -1px;
+    }
+    .run {
+      position: absolute;
+      top: 0;
+      right: 0;
     }
     .result {
-      margin-top: 20px;
+      margin: 0 -1px -1px;
+      border: 1px solid;
+      display: none
     }
     iframe {
       width: 100%;
       border: none;
+      margin-bottom: -4px;
     }
   `;
 
@@ -78,7 +82,6 @@ export class CodeSnippet extends LitElement {
         highlightActiveLine(),
         oneDark,
         this.languageCompartment.of(this.getLanguageExtension(mode)),
-        StreamLanguage.define(shellLang),
         EditorView.updateListener.of((update) => {
           if (update.docChanged) {
             const code = update.state.doc.toString();
@@ -91,12 +94,6 @@ export class CodeSnippet extends LitElement {
                 break;
               case 'css':
                 this.cssCode = code;
-                break;
-              case 'python':
-                this.pythonCode = code;
-                break;
-              case 'x-sh':
-                this.xShCode = code;
                 break;
             }
           }
@@ -118,10 +115,6 @@ export class CodeSnippet extends LitElement {
         return jsLang();
       case 'css':
         return cssLang();
-      case 'python':
-        return pythonLang();
-      // case 'x-sh':
-      //   return shellLang();
       default:
         return [];
     }
@@ -135,10 +128,6 @@ export class CodeSnippet extends LitElement {
         return this.jsCode;
       case 'css':
         return this.cssCode;
-      case 'python':
-        return this.pythonCode;
-      case 'x-sh':
-        return this.xShCode;
       default:
         return '';
     }
@@ -147,20 +136,14 @@ export class CodeSnippet extends LitElement {
   setCodeForType(type: string, escapedContent: string) {
     const content = escapedContent.replaceAll('\\n', '\n');
     switch (type) {
-      case 'text/html':
+      case 'html':
         this.htmlCode = content;
         break;
-      case 'application/javascript':
+      case 'javascript':
         this.jsCode = content;
         break;
-      case 'text/css':
+      case 'css':
         this.cssCode = content;
-        break;
-      case 'text/x-python':
-        this.pythonCode = content;
-        break;
-      case 'application/x-sh':
-        this.xShCode = content;
         break;
     }
   }
@@ -189,6 +172,7 @@ export class CodeSnippet extends LitElement {
   }
 
   async runCode() {
+    this.shadowRoot?.querySelector('.result')?.setAttribute('style', 'display: block;');
     const iframeDom = this.shadowRoot?.querySelector(
       'iframe'
     ) as HTMLIFrameElement;
@@ -201,44 +185,8 @@ export class CodeSnippet extends LitElement {
         doc.write(this.htmlCode);
         doc.write(`<style>${this.cssCode}</style>`);
         doc.write(`<script>${this.jsCode}</script>`);
-        doc.write(`<pre style="text-align: left;">${await this.executePython(this.pythonCode)}</pre>`);
-        doc.write(`<pre style="text-align: left;">${await this.executeShell(this.xShCode)}</pre>`);
         doc.close();
       }
-    }
-  }
-
-  private async executePython(code: string) {
-    const escapedCode = code.replaceAll('"', '\\"').replaceAll('\n', '; ');
-    const command = `python -c "${escapedCode}"`;
-    try {
-      const response = await fetch('http://localhost:5000/execute', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ command }),
-      });
-      const data = await response.json();
-      return `<h3>python result:</h3><br/>returnCode: ${data.returnCode}<br/>stdout:<br/>${data.stdOut}<br/>stderr:<br/>${data.stdErr}<br/>`;
-    } catch (error) {
-      return 'error: ' + error;
-    }
-  }
-
-  private async executeShell(command: string) {
-    try {
-      const response = await fetch('http://localhost:5000/execute', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ command }),
-      });
-      const data = await response.json();
-      return `<h3>x-sh result:</h3><br/>returnCode: ${data.returnCode}<br/>stdout:<br/>${data.stdOut}<br/>stderr:<br/>${data.stdErr}<br/>`;
-    } catch (error) {
-      return 'error: ' + error;
     }
   }
 
@@ -260,21 +208,13 @@ export class CodeSnippet extends LitElement {
           data-tab="css"
           >CSS</span
         >
-        <span
-          class="tab ${this.selectedTab === 'python' ? 'active' : ''}"
-          data-tab="python"
-          >Python</span
-        >
-        <span
-          class="tab ${this.selectedTab === 'x-sh' ? 'active' : ''}"
-          data-tab="x-sh"
-          >x-sh</span
-        >
       </div>
-      <div class="code-editor-container"></div>
-      <button @click="${this.runCode}">Run</button>
-      <div class="result">
-        <iframe></iframe>
+      <div class="code-block">
+        <div class="code-editor-container"></div>
+        <button class="run" @click="${this.runCode}">Run</button>
+        <div class="result">
+          <iframe></iframe>
+        </div>
       </div>
     `;
   }

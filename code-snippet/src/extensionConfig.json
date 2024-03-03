@@ -3,10 +3,10 @@
   "description": "A web component to display code snippets and allows to execute them in the browser",
   "model": {
     "$schema": "https://raw.githubusercontent.com/langware-labs/components/main/code-snippet/src/schema.json",
-    "prompt": "The result should always be an array, even in case of a single element.\nEach element in the array should represent a different programming language.\nPrettify the provided code elements.\nUse escape character new lines."
+    "prompt": "The result should always be an array, even in case of a single element.\nEach element in the array should represent a different programming language.\nPrettify the provided code elements.\nUse escape character for new lines."
   },
   "view": {
-    "importPath": "https://langware-labs.github.io/components/code-snippet.bundled.js",
+    "importPath": "https://langware-labs.github.io/components/code-snippet/code-snippet.bundled.js",
     "webComponentName": "code-snippet",
     "webComponentAttributeName": "data"
   }

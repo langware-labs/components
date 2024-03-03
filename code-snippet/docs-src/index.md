@@ -20,23 +20,15 @@ title: <code-snippet> ⌲ Home
   codeSnippet.data  =  [
     {
       "content": "<h1>\\n  Hello World\\n</h1>",
-      "type": "text/html"
+      "type": "html"
     },
     {
       "content": "h1\\n{\n  color: blue;\n}",
-      "type": "text/css"
+      "type": "css"
     },
     {
       "content": "console.log(\"Hello from JS\");",
-      "type": "application/javascript"
-    },
-    {
-      "content": "import math\\nprint(math.sqrt(16))\\nprint(\"Hello, World!\")",
-      "type": "text/x-python"
-    },
-    { 
-      "content": "ls", 
-      "type": "application/x-sh"
+      "type": "javascript"
     }
   ];
   document.body.appendChild(codeSnippet);
@@ -50,23 +42,15 @@ title: <code-snippet> ⌲ Home
   codeSnippet.data  =  [
     {
       "content": "<h1>\\n  Hello World\\n</h1>",
-      "type": "text/html"
+      "type": "html"
     },
     {
       "content": "h1\\n{\n  color: blue;\n}",
-      "type": "text/css"
+      "type": "css"
     },
     {
       "content": "console.log(\"Hello from JS\");",
-      "type": "application/javascript"
-    },
-    {
-      "content": "import math\\nprint(math.sqrt(16))\\nprint(\"Hello, World!\")",
-      "type": "text/x-python"
-    },
-    { 
-      "content": "ls", 
-      "type": "application/x-sh"
+      "type": "javascript"
     }
   ];
   document.body.appendChild(codeSnippet);
