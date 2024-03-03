@@ -12,8 +12,8 @@ def execute_script():
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         return jsonify({
-            "stdOut": stdout.decode('utf-8'),
-            "stdErr": stderr.decode('utf-8'),
+            "stdout": stdout.decode('utf-8'),
+            "stderr": stderr.decode('utf-8'),
             "returnCode": process.returncode
         })
     except Exception as e:

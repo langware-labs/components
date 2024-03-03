@@ -125,10 +125,10 @@ export class ShellScript extends LitElement {
       const data = await response.json();
       
       if (data.returnCode === 0 && (data.stderr === undefined || data.stderr === '')) {
-        return data.stdOut;
+        return data.stdout;
       }
       return 'returnCode: ' + data.returnCode +
-        (data.stdOut ? '\nstdout:\n' + data.stdOut : '') +
+        (data.stdout ? '\nstdout:\n' + data.stdout : '') +
         (data.stderr ? '\nstderr:\n' + data.stderr : '');
     } catch (error) {
       return 'error: ' + error;
