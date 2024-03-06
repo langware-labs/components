@@ -97,6 +97,17 @@ export class ShellScript extends LitElement {
     }
   }
 
+  // Function to get a cookie's value by its name
+  private getCookie(name: string): string | undefined {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      const cookieValue = parts.pop()?.split(';').shift();
+      return cookieValue;
+    }
+    return undefined;
+  }
+
   private async executeShell() {
     let command = '';
     switch (this.shellType) {
@@ -115,14 +126,17 @@ export class ShellScript extends LitElement {
         return 'Invalid type';
     }
     try {
-      const response = await fetch('http://localhost:5000/execute', {
+      const jwtToken = this.getCookie('JWT');
+      const response = await fetch('http://localhost:8000/api/v1/graph/execute', {
         method: 'POST',
         headers: {
+          'Authorization': jwtToken ? `Bearer ${jwtToken}` : '',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ command }),
       });
-      const data = await response.json();
+      const json = await response.json();
+      const data = json.data;
       
       if (data.returnCode === 0 && data.stdout && (data.stderr === undefined || data.stderr === '')) {
         return data.stdout;
