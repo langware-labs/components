@@ -34,5 +34,13 @@
       };
       document.body.appendChild(shellScript);
     </script>
+    <script>
+      const cmdScript = document.createElement('shell-script');
+      cmdScript.data  =  {
+        "content": "dir", 
+        "type": "cmd"
+      };
+      document.body.appendChild(cmdScript);
+    </script>
   </body>
   </html>

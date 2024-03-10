@@ -17,37 +17,53 @@ title: <shell-script> ⌲ Home
 ```html
 <script>
   const pythonScript = document.createElement('shell-script');
-  pythonScript.data  =  {
-    "content": "import math\\nprint(math.sqrt(16))\\nprint(\"Hello, World!\")",
-    "type": "python"
+  pythonScript.data = {
+    content: 'import math\\nprint(math.sqrt(16))\\nprint("Hello, World!")',
+    type: 'python',
   };
   document.body.appendChild(pythonScript);
-</script>          
+</script>
 <script>
   const shellScript = document.createElement('shell-script');
-  shellScript.data  =  {
-    "content": "ls", 
-    "type": "bash"
+  shellScript.data = {
+    content: 'ls',
+    type: 'bash',
   };
   document.body.appendChild(shellScript);
-</script>   
+</script>
+<script>
+  const cmdScript = document.createElement('shell-script');
+  cmdScript.data = {
+    content: 'dir',
+    type: 'cmd',
+  };
+  document.body.appendChild(cmdScript);
+</script>
 ```
 
   </div>
 </section>
 <script>
   const pythonScript = document.createElement('shell-script');
-  pythonScript.data  =  {
-    "content": "import math\\nprint(math.sqrt(16))\\nprint(\"Hello, World!\")",
-    "type": "python"
+  pythonScript.data = {
+    content: 'import math\\nprint(math.sqrt(16))\\nprint("Hello, World!")',
+    type: 'python',
   };
   document.body.appendChild(pythonScript);
-</script>          
+</script>
 <script>
   const shellScript = document.createElement('shell-script');
-  shellScript.data  =  {
-    "content": "ls", 
-    "type": "bash"
+  shellScript.data = {
+    content: 'ls',
+    type: 'bash',
   };
   document.body.appendChild(shellScript);
-</script>   
+</script>
+<script>
+  const cmdScript = document.createElement('shell-script');
+  cmdScript.data = {
+    content: 'dir',
+    type: 'cmd',
+  };
+  document.body.appendChild(cmdScript);
+</script>
