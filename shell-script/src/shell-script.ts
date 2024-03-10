@@ -4,7 +4,7 @@ import {customElement, property} from 'lit/decorators.js';
 import {EditorState} from '@codemirror/state';
 import {EditorView, keymap, highlightActiveLine} from '@codemirror/view';
 import {defaultKeymap} from '@codemirror/commands';
-import {StreamLanguage} from "@codemirror/language";
+import {StreamLanguage} from '@codemirror/language';
 import {shell as shellLang} from '@codemirror/legacy-modes/mode/shell';
 import {python as pythonLang} from '@codemirror/lang-python';
 import {oneDark} from '@codemirror/theme-one-dark';
@@ -12,8 +12,11 @@ import {basicSetup} from 'codemirror';
 
 @customElement('shell-script')
 export class ShellScript extends LitElement {
-  @property({ type: Object }) data: { type: string, content: string } = { type: '', content: '' };
-  
+  @property({type: Object}) data: {type: string; content: string} = {
+    type: '',
+    content: '',
+  };
+
   private shellCode = '';
   private shellType = '';
   private editorParentNode?: HTMLElement;
@@ -26,7 +29,8 @@ export class ShellScript extends LitElement {
     }
     .code-block {
       position: relative;
-      border: 1px solid;    }
+      border: 1px solid;
+    }
     .run {
       position: absolute;
       top: 0;
@@ -42,7 +46,7 @@ export class ShellScript extends LitElement {
 
   override firstUpdated() {
     this.shellType = this.data.type;
-    this.shellCode =  this.data.content.replaceAll('\\n', '\n');
+    this.shellCode = this.data.content.replaceAll('\\n', '\n');
     this.editorParentNode = this.shadowRoot?.querySelector(
       '.code-editor-container'
     ) as HTMLElement;
@@ -74,7 +78,7 @@ export class ShellScript extends LitElement {
     });
   }
 
-  getLanguageExtension(mode: string) : Extension {
+  getLanguageExtension(mode: string): Extension {
     switch (mode) {
       case 'bash':
       case 'powershell':
@@ -86,7 +90,7 @@ export class ShellScript extends LitElement {
         return [];
     }
   }
-  
+
   async runCode() {
     const resultDom = this.shadowRoot?.querySelector(
       'pre.result'
@@ -109,41 +113,38 @@ export class ShellScript extends LitElement {
   }
 
   private async executeShell() {
-    let command = '';
-    switch (this.shellType) {
-      case 'bash':
-      case 'cmd':
-      case 'powershell': {
-        command = this.shellCode;
-        break;
-      }
-      case 'python': {
-        const escapedCode = this.shellCode.replaceAll('"', '\\"');
-        command = `python -c "${escapedCode}"`;
-        break;
-      }
-      default:
-        return 'Invalid type';
-    }
     try {
       const jwtToken = this.getCookie('JWT');
-      const response = await fetch('http://localhost:8000/api/v1/graph/execute', {
-        method: 'POST',
-        headers: {
-          'Authorization': jwtToken ? `Bearer ${jwtToken}` : '',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ command }),
-      });
+      const response = await fetch(
+        'http://localhost:8000/api/v1/graph/execute',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: jwtToken ? `Bearer ${jwtToken}` : '',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            command: this.shellCode,
+            shellType: this.shellType,
+          }),
+        }
+      );
       const json = await response.json();
       const data = json.data;
-      
-      if (data.returnCode === 0 && data.stdout && (data.stderr === undefined || data.stderr === '')) {
+
+      if (
+        data.returnCode === 0 &&
+        data.stdout &&
+        (data.stderr === undefined || data.stderr === '')
+      ) {
         return data.stdout;
       }
-      return 'returnCode: ' + data.returnCode +
+      return (
+        'returnCode: ' +
+        data.returnCode +
         (data.stdout ? '\nstdout:\n' + data.stdout : '') +
-        (data.stderr ? '\nstderr:\n' + data.stderr : '');
+        (data.stderr ? '\nstderr:\n' + data.stderr : '')
+      );
     } catch (error) {
       return 'error: ' + error;
     }
