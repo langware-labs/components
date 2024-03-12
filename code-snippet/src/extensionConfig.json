@@ -1,6 +1,6 @@
 {
   "title": "code-snippet, edit and execute",
-  "description": "A web component to display code snippets and allows to execute them in the browser",
+  "description": "A web component to display code snippets and allows to execute them in the browser. Support html, javascript and css.",
   "model": {
     "$schema": "https://raw.githubusercontent.com/langware-labs/components/main/code-snippet/src/schema.json",
     "prompt": "The result should always be an array, even in case of a single element.\nEach element in the array should represent a different programming language.\nAggregate related code blocks in a single array.\nPrettify the provided code elements.\nUse escape character for new lines, quotes and double quotes."

@@ -1,6 +1,6 @@
 {
   "title": "shell-script, edit and execute",
-  "description": "A web component to display shell script snippet and allows to execute it in the browser",
+  "description": "A web component to display shell script snippet and allows to execute it in the browser. Support bash, cmd, powershell and python.",
   "model": {
     "$schema": "https://raw.githubusercontent.com/langware-labs/components/main/shell-script/src/schema.json",
     "prompt": "Prettify the provided script.\nUse escape character for new lines, quotes and double quotes."
