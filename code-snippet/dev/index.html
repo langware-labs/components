@@ -20,20 +20,22 @@
   <body>
     <script>
       const codeSnippet = document.createElement('code-snippet');
-      codeSnippet.data  =  [
-      {
-        "content": "<!DOCTYPE html>\\n<html>\\n<head>\\n    <title>Counter App</title>\\n</head>\\n<body>\\n    <h1 id='counter'>0</h1>\\n    <button id='increase'>Increase</button>\\n    <button id='decrease'>Decrease</button>\\n    <button id='reset'>Reset</button>\\n</body>\\n</html>",
-        "type": "html"
-      },
-      {
-        "content": "body {\\n    text-align: center;\\n    font-family: Arial, sans-serif;\\n}\\n\\nh1 {\\n    font-size: 60px;\\n}\\n\\nbutton {\\n    margin: 10px;\\n    padding: 10px;\\n    font-size: 18px;\\n}",
-        "type": "css"
-      },
-      {
-        "content": "let counter = 0;\\n\\nconst counterElement = document.getElementById('counter');\\nconst increaseButton = document.getElementById('increase');\\nconst decreaseButton = document.getElementById('decrease');\\nconst resetButton = document.getElementById('reset');\\n\\nincreaseButton.addEventListener('click', function() {\\n    counter++;\\n    counterElement.innerText = counter;\\n});\\n\\ndecreaseButton.addEventListener('click', function() {\\n    counter--;\\n    counterElement.innerText = counter;\\n});\\n\\nresetButton.addEventListener('click', function() {\\n    counter = 0;\\n    counterElement.innerText = counter;\\n});",
-        "type": "javascript"
-      }
-    ];
+      codeSnippet.data  =  {
+        items: [
+          {
+            content: "<!DOCTYPE html>\\n<html>\\n<head>\\n    <title>Counter App</title>\\n</head>\\n<body>\\n    <h1 id='counter'>0</h1>\\n    <button id='increase'>Increase</button>\\n    <button id='decrease'>Decrease</button>\\n    <button id='reset'>Reset</button>\\n</body>\\n</html>",
+            type: 'html',
+          },
+          {
+            content: "body {\\n    text-align: center;\\n    font-family: Arial, sans-serif;\\n}\\n\\nh1 {\\n    font-size: 60px;\\n}\\n\\nbutton {\\n    margin: 10px;\\n    padding: 10px;\\n    font-size: 18px;\\n}",
+            type: 'css',
+          },
+          {
+            content: "let counter = 0;\\n\\nconst counterElement = document.getElementById('counter');\\nconst increaseButton = document.getElementById('increase');\\nconst decreaseButton = document.getElementById('decrease');\\nconst resetButton = document.getElementById('reset');\\n\\nincreaseButton.addEventListener('click', function() {\\n    counter++;\\n    counterElement.innerText = counter;\\n});\\n\\ndecreaseButton.addEventListener('click', function() {\\n    counter--;\\n    counterElement.innerText = counter;\\n});\\n\\nresetButton.addEventListener('click', function() {\\n    counter = 0;\\n    counterElement.innerText = counter;\\n});",
+            type: 'javascript',
+          },
+        ],
+      };
       document.body.appendChild(codeSnippet);
     </script>          
   </body>

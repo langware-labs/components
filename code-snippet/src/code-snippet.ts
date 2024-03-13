@@ -5,14 +5,16 @@ import {EditorView, keymap, highlightActiveLine} from '@codemirror/view';
 import {defaultKeymap} from '@codemirror/commands';
 import {html as htmlLang} from '@codemirror/lang-html';
 import {javascript as jsLang} from '@codemirror/lang-javascript';
-import {css as cssLang } from '@codemirror/lang-css';
+import {css as cssLang} from '@codemirror/lang-css';
 import {oneDark} from '@codemirror/theme-one-dark';
 import {basicSetup} from 'codemirror';
 
 @customElement('code-snippet')
 export class CodeSnippet extends LitElement {
-  @property({ type: Array }) data = [];
-  
+  @property({type: Object}) data: {items: {type: string; content: string}[]} = {
+    items: [],
+  };
+
   private htmlCode = '';
   private jsCode = '';
   private cssCode = '';
@@ -34,7 +36,7 @@ export class CodeSnippet extends LitElement {
       margin: 0px;
       border: 1px solid #ccc;
       display: inline-block;
-      
+
       color: light-dark(black, white);
       background-color: light-dark(#f9f9f9, #090909);
     }
@@ -54,7 +56,7 @@ export class CodeSnippet extends LitElement {
     .result {
       margin: 0 -1px -1px;
       border: 1px solid;
-      display: none
+      display: none;
     }
     iframe {
       width: 100%;
@@ -64,7 +66,9 @@ export class CodeSnippet extends LitElement {
   `;
 
   override firstUpdated() {
-    this.data.forEach((item: { type: string, content: string }) => this.setCodeForType(item.type, item.content));
+    this.data.items.forEach((item: {type: string; content: string}) =>
+      this.setCodeForType(item.type, item.content)
+    );
     this.editorParentNode = this.shadowRoot?.querySelector(
       '.code-editor-container'
     ) as HTMLElement;
@@ -172,7 +176,9 @@ export class CodeSnippet extends LitElement {
   }
 
   async runCode() {
-    this.shadowRoot?.querySelector('.result')?.setAttribute('style', 'display: block;');
+    this.shadowRoot
+      ?.querySelector('.result')
+      ?.setAttribute('style', 'display: block;');
     const iframeDom = this.shadowRoot?.querySelector(
       'iframe'
     ) as HTMLIFrameElement;

@@ -17,20 +17,22 @@ title: <code-snippet> ⌲ Home
 ```html
 <script>
   const codeSnippet = document.createElement('code-snippet');
-  codeSnippet.data  =  [
-    {
-      "content": "<h1>\\n  Hello World\\n</h1>",
-      "type": "html"
-    },
-    {
-      "content": "h1\\n{\n  color: blue;\n}",
-      "type": "css"
-    },
-    {
-      "content": "console.log(\"Hello from JS\");",
-      "type": "javascript"
-    }
-  ];
+  codeSnippet.data = {
+    items: [
+      {
+        content: '<h1>\\n  Hello World\\n</h1>',
+        type: 'html',
+      },
+      {
+        content: 'h1\\n{\n  color: blue;\n}',
+        type: 'css',
+      },
+      {
+        content: 'console.log("Hello from JS");',
+        type: 'javascript',
+      },
+    ],
+  };
   document.body.appendChild(codeSnippet);
 </script>
 ```
@@ -39,19 +41,21 @@ title: <code-snippet> ⌲ Home
 </section>
 <script>
   const codeSnippet = document.createElement('code-snippet');
-  codeSnippet.data  =  [
-    {
-      "content": "<h1>\\n  Hello World\\n</h1>",
-      "type": "html"
-    },
-    {
-      "content": "h1\\n{\n  color: blue;\n}",
-      "type": "css"
-    },
-    {
-      "content": "console.log(\"Hello from JS\");",
-      "type": "javascript"
-    }
-  ];
+  codeSnippet.data  =  {
+    items: [
+      {
+        content: '<h1>\\n  Hello World\\n</h1>',
+        type: 'html',
+      },
+      {
+        content: 'h1\\n{\n  color: blue;\n}',
+        type: 'css',
+      },
+      {
+        content: 'console.log("Hello from JS");',
+        type: 'javascript',
+      },
+    ],
+  };
   document.body.appendChild(codeSnippet);
-</script>   
+</script>
