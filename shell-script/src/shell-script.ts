@@ -101,6 +101,10 @@ export class ShellScript extends LitElement {
     }
   }
 
+  async askForHelp() {
+    
+  }
+
   // Function to get a cookie's value by its name
   private getCookie(name: string): string | undefined {
     const value = `; ${document.cookie}`;
@@ -155,7 +159,9 @@ export class ShellScript extends LitElement {
       <div class="code-block">
         <div class="code-editor-container"></div>
         <button class="run" @click="${this.runCode}">Run</button>
-        <pre class="result"></pre>
+        <pre class="result">
+          <button class="help" @click="${this.askForHelp}">Help</button>
+        </pre>
       </div>
     `;
   }
