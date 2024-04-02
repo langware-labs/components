@@ -6,7 +6,7 @@
     "prompt": "The result should always be an array, even in case of a single element.\nEach element in the array should represent a different programming language.\nThe supported programming languages are: html, javascript, css.\nAggregate related code blocks in a single array.\nPrettify the provided code elements.\nUse escape character for new lines, quotes and double quotes.\nExample:\n{\n  \"items\": [\n    {\n      \"content\": \"<!DOCTYPE html>\\n<html>\\n  <head>\\n    <title>Hello World</title>\\n  </head>\\n  <body>\\n    <h1>Hello, World!</h1>\\n  </body>\\n</html>\\n\",\n      \"type\": \"html\"\n    },\n    {\n      \"content\": \"console.log('Hello World');\",\n      \"type\": \"js\"\n    },\n    {\n      \"content\": \"h1 {color: blue;}\",\n      \"type\": \"css\"\n    }\n  ]\n}\n"
   },
   "view": {
-    "importPath": "https://raw.githubusercontent.com/langware-labs/components/main/code-snippet/docs/code-snippet.bundled.js",
+    "importPath": "https://langware-labs.github.io/components/code-snippet/code-snippet.bundled.js",
     "webComponentName": "code-snippet",
     "webComponentAttributeName": "data"
   }
