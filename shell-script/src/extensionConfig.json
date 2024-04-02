@@ -6,7 +6,7 @@
     "prompt": "Prettify the provided script.\nThe supported shell scripts are: bash, cmd, powershell, python.\nUse escape character for new lines, quotes and double quotes.\nExample:\n{\\n  \"content\": \"print('Hello, World!')\",\\n  \"type\": \"python\"\\n}\n"
   },
   "view": {
-    "importPath": "https://langware-labs.github.io/components/shell-script/shell-script.bundled.js",
+    "importPath": "https://raw.githubusercontent.com/langware-labs/components/main/shell-script/docs/shell-script.bundled.js",
     "webComponentName": "shell-script",
     "webComponentAttributeName": "data"
   }

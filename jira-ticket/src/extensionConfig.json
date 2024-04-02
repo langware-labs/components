@@ -6,7 +6,7 @@
     "prompt": "Provide optional link to jira ticket"
   },
   "view": {
-    "importPath": "https://langware-labs.github.io/components/jira-ticket/jira-ticket.bundled.js",
+    "importPath": "https://raw.githubusercontent.com/langware-labs/components/main/jira-ticket/docs/jira-ticket.bundled.js",
     "webComponentName": "jira-ticket",
     "webComponentAttributeName": "data"
   }
