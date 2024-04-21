@@ -80,7 +80,7 @@ To run the dev server and open the project in a new browser tab:
 npm run serve
 ```
 
-There is a development HTML file located at `/dev/index.html` that you can view at http://localhost:8000/dev/index.html. Note that this command will serve your code using Lit's development mode (with more verbose errors). To serve your code against Lit's production mode, use `npm run serve:prod`.
+There is a development HTML file located at `/dev/index.html` that you can view at /dev/index.html. Note that this command will serve your code using Lit's development mode (with more verbose errors). To serve your code against Lit's production mode, use `npm run serve:prod`.
 
 ## Editing
 
@@ -138,7 +138,7 @@ To watch the site files, and re-build automatically, run:
 npm run docs:watch
 ```
 
-The site will usually be served at http://localhost:8000.
+The site will usually be served at http://localhost:8080.
 
 **Note**: The project uses Rollup to bundle and minify the source code for the docs site and not to publish to NPM. For bundling and minification, check the [Bundling and minification](#bundling-and-minification) section.
 

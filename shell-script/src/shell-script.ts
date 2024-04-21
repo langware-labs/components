@@ -97,40 +97,25 @@ export class ShellScript extends LitElement {
     ) as HTMLPreElement;
     if (resultDom) {
       resultDom.style.display = 'block';
-      resultDom.textContent = await this.executeShell();
+      const execCommand = {
+        command: this.shellCode,
+        shellType: this.shellType,
+      };
+      this.addToContext(JSON.stringify(execCommand));
+      const execResult = await this.executeShell(execCommand);
+      resultDom.textContent = execResult;
+      this.addToContext(execResult);
     }
   }
 
-  async askForHelp() {
-    
-  }
-
-  // Function to get a cookie's value by its name
-  private getCookie(name: string): string | undefined {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-      const cookieValue = parts.pop()?.split(';').shift();
-      return cookieValue;
-    }
-    return undefined;
-  }
-
-  private async executeShell() {
+  private async executeShell(execCommand: {command: string; shellType: string}) {
     try {
-      const jwtToken = this.getCookie('JWT');
       const response = await fetch(
-        'http://localhost:8000/api/v1/graph/execute',
+        '/api/v1/graph/execute',
         {
           method: 'POST',
-          headers: {
-            Authorization: jwtToken ? `Bearer ${jwtToken}` : '',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            command: this.shellCode,
-            shellType: this.shellType,
-          }),
+          body: JSON.stringify(execCommand),
+          credentials: 'include'
         }
       );
       const json = await response.json();
@@ -154,13 +139,31 @@ export class ShellScript extends LitElement {
     }
   }
 
+  private async addToContext(execResult: string) {
+    try {
+      const response = await fetch(
+        '/api/v1/graph/context',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            role: 'machine',
+            content: execResult,
+          }),
+          credentials: 'include'
+        }
+      );
+      console.assert(200 === response.status, 'Failed to add to context');
+    } catch (error) {
+      console.error('Failed to add to context', error);
+    }
+  }
+
   override render() {
     return html`
       <div class="code-block">
         <div class="code-editor-container"></div>
         <button class="run" @click="${this.runCode}">Run</button>
         <pre class="result">
-          <button class="help" @click="${this.askForHelp}">Help</button>
         </pre>
       </div>
     `;

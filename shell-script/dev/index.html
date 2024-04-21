@@ -19,6 +19,8 @@
   </head>
   <body>         
     <script>
+      fetch('/api/v1/login/local');
+      
       const pythonScript = document.createElement('shell-script');
       pythonScript.data  =  {
         "content": "import math\\nprint(math.sqrt(16))\\nprint(\"Hello, World!\")",
