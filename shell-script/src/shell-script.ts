@@ -139,7 +139,7 @@ export class ShellScript extends LitElement {
     }
   }
 
-  private async addToContext(execResult: string) {
+  private async addToContext(contextStr: string) {
     try {
       const response = await fetch(
         '/api/v1/graph/context',
@@ -147,7 +147,7 @@ export class ShellScript extends LitElement {
           method: 'POST',
           body: JSON.stringify({
             role: 'machine',
-            content: execResult,
+            content: contextStr,
           }),
           credentials: 'include'
         }

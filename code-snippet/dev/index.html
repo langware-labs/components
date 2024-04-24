@@ -19,6 +19,8 @@
   </head>
   <body>
     <script>
+      fetch('/api/v1/login/local');
+
       const codeSnippet = document.createElement('code-snippet');
       codeSnippet.data  =  {
         items: [
@@ -31,7 +33,7 @@
             type: 'css',
           },
           {
-            content: "let counter = 0;\\n\\nconst counterElement = document.getElementById('counter');\\nconst increaseButton = document.getElementById('increase');\\nconst decreaseButton = document.getElementById('decrease');\\nconst resetButton = document.getElementById('reset');\\n\\nincreaseButton.addEventListener('click', function() {\\n    counter++;\\n    counterElement.innerText = counter;\\n});\\n\\ndecreaseButton.addEventListener('click', function() {\\n    counter--;\\n    counterElement.innerText = counter;\\n});\\n\\nresetButton.addEventListener('click', function() {\\n    counter = 0;\\n    counterElement.innerText = counter;\\n});",
+            content: "let counter = 0;\\n\\nconst counterElement = document.getElementById('counter');\\nconst increaseButton = document.getElementById('increase');\\nconst decreaseButton = document.getElementById('decrease');\\nconst resetButton = document.getElementById('reset');\\n\\nincreaseButton.addEventListener('click', function() {\\n    counter++;\\n    counterElement.innerText = counter;\\n});\\n\\ndecreaseButton.addEventListener('click', function() {\\n    counter--;\\n    counterElement.innerText = counter;\\n});\\n\\nresetButton.addEventListener('click', function() {\\n    console.log('reset counter');\\n    counter = 0;\\n    counterElement.innerText = counter;\\n});",
             type: 'javascript',
           },
         ],

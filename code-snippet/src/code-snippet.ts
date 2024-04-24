@@ -24,6 +24,35 @@ export class CodeSnippet extends LitElement {
   private editorParentNode?: HTMLElement;
   private languageCompartment = new Compartment();
 
+  readonly customConsoleReportJs = `
+    const flowpad_addToContext = function() {
+      parent.document.querySelector('code-snippet').addToContext(JSON.stringify(arguments));
+    }
+    console.defaultLog = console.log.bind(console);
+    console.log = function(){
+      flowpad_addToContext({"type":"log", "datetime":Date().toLocaleString(), "value":Array.from(arguments)});
+      console.defaultLog.apply(console, arguments);
+    }
+    console.defaultError = console.error.bind(console);
+    console.error = function(){
+      flowpad_addToContext({"type":"error", "datetime":Date().toLocaleString(), "value":Array.from(arguments)});
+      console.defaultError.apply(console, arguments);
+    }
+    console.defaultWarn = console.warn.bind(console);
+    console.warn = function(){
+      flowpad_addToContext({"type":"warn", "datetime":Date().toLocaleString(), "value":Array.from(arguments)});
+      console.defaultWarn.apply(console, arguments);
+    }
+    console.defaultDebug = console.debug.bind(console);
+    console.debug = function(){
+      flowpad_addToContext({"type":"debug", "datetime":Date().toLocaleString(), "value":Array.from(arguments)});
+      console.defaultDebug.apply(console, arguments);
+    }
+    window.onerror = function (error, url, line, column, stack) { 
+      flowpad_addToContext(error, url, line, column, stack);
+    };
+  `;
+
   static override styles = css`
     :host {
       display: block;
@@ -175,7 +204,16 @@ export class CodeSnippet extends LitElement {
     }
   }
 
+  getCode() {
+    return `${this.htmlCode}
+    <style>${this.cssCode}</style>
+    <script>${this.customConsoleReportJs}</script>
+    <script>${this.jsCode}</script>`;
+  }
+  
   async runCode() {
+    const code = this.getCode();
+    this.addToContext(code);
     this.shadowRoot
       ?.querySelector('.result')
       ?.setAttribute('style', 'display: block;');
@@ -188,11 +226,28 @@ export class CodeSnippet extends LitElement {
       const doc = iframe.contentDocument || iframe.contentWindow?.document;
       if (doc) {
         doc.open();
-        doc.write(this.htmlCode);
-        doc.write(`<style>${this.cssCode}</style>`);
-        doc.write(`<script>${this.jsCode}</script>`);
+        doc.write(code);
         doc.close();
       }
+    }
+  }
+
+  async addToContext(contextStr: string) {
+    try {
+      const response = await fetch(
+        '/api/v1/graph/context',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            role: 'machine',
+            content: contextStr,
+          }),
+          credentials: 'include'
+        }
+      );
+      console.assert(200 === response.status, 'Failed to add to context');
+    } catch (error) {
+      console.error('Failed to add to context', error);
     }
   }
 
