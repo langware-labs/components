@@ -3,7 +3,7 @@
   "description": "A web component to display shell script snippet and allows to execute it in the browser. Support bash, cmd, powershell and python.",
   "model": {
     "$schema": "https://raw.githubusercontent.com/langware-labs/components/main/shell-script/src/schema.json",
-    "prompt": "Prettify the provided script.\nThe supported shell scripts are: bash, cmd, powershell, python.\nUse escape character for new lines, quotes and double quotes.\nExample:\n{\\n  \"content\": \"print('Hello, World!')\",\\n  \"type\": \"python\"\\n}\n"
+    "prompt": "Prettify the provided script.\nThe supported shell scripts are: bash, cmd, powershell, python.\nUse escape character for new lines, quotes and double quotes.\nExample:\n{\n  \"type\": \"python\"\n  \"content\": \"print('Hello, World!')\",\n}"
   },
   "view": {
     "importPath": "https://langware-labs.github.io/components/shell-script/shell-script.bundled.js",
