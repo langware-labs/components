@@ -142,7 +142,7 @@ export class ShellScript extends LitElement {
   private async addToContext(contextStr: string) {
     try {
       // TODO: Replace with a SDK call that knows that chat ID.
-      const chatTypeId = this.closest('[chat]')?.getAttribute('chat');
+      const chatTypeId = this.closestCrossShadowBoundary('[chat]')?.getAttribute('chat');
       const chatId = chatTypeId?.split(':')[1];
       const response = await fetch(
         '/api/v1/graph/context',
@@ -160,6 +160,16 @@ export class ShellScript extends LitElement {
     } catch (error) {
       console.error('Failed to add to context', error);
     }
+  }
+
+  private closestCrossShadowBoundary(selector: string, element: Element = this): Element | null {
+    while (element) {
+      if (element.matches(selector)) {
+        return element;
+      }
+      element = element.parentElement || (element.getRootNode() as ShadowRoot).host;
+    }
+    return null;
   }
 
   override render() {
