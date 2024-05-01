@@ -234,6 +234,9 @@ export class CodeSnippet extends LitElement {
 
   async addToContext(contextStr: string) {
     try {
+      // TODO: Replace with a SDK call that knows that chat ID.
+      const chatTypeId = this.closest('[chat]')?.getAttribute('chat');
+      const chatId = chatTypeId?.split(':')[1];
       const response = await fetch(
         '/api/v1/graph/context',
         {
@@ -241,6 +244,7 @@ export class CodeSnippet extends LitElement {
           body: JSON.stringify({
             role: 'machine',
             content: contextStr,
+            chat_id: chatId
           }),
           credentials: 'include'
         }
