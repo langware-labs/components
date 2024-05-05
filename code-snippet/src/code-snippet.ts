@@ -56,8 +56,6 @@ export class CodeSnippet extends LitElement {
   static override styles = css`
     :host {
       display: block;
-      margin: auto auto 20px;
-      width: 80%;
     }
     .tab {
       cursor: pointer;

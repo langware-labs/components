@@ -64,8 +64,6 @@ const nt={attribute:!0,type:String,converter:Q,reflect:!1,hasChanged:g},ot=(t=nt
     `}};sg.styles=((t,...e)=>{const r=1===t.length?t[0]:e.reduce(((e,i,r)=>e+(t=>{if(!0===t._$cssResult$)return t.cssText;if("number"==typeof t)return t;throw Error("Value passed to 'css' function must be a 'css' function result: "+t+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(i)+t[r+1]),t[0]);return new s(r,t,i)})`
     :host {
       display: block;
-      margin: auto auto 20px;
-      width: 80%;
     }
     .tab {
       cursor: pointer;

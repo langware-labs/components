@@ -24,8 +24,6 @@ export class ShellScript extends LitElement {
   static override styles = css`
     :host {
       display: block;
-      margin: auto auto 20px;
-      width: 80%;
     }
     .code-block {
       position: relative;

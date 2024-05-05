@@ -41,8 +41,6 @@ const nt={attribute:!0,type:String,converter:w,reflect:!1,hasChanged:g},ht=(t=nt
     `}};Qm.styles=((t,...e)=>{const s=1===t.length?t[0]:e.reduce(((e,i,s)=>e+(t=>{if(!0===t._$cssResult$)return t.cssText;if("number"==typeof t)return t;throw Error("Value passed to 'css' function must be a 'css' function result: "+t+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(i)+t[s+1]),t[0]);return new r(s,t,i)})`
     :host {
       display: block;
-      margin: auto auto 20px;
-      width: 80%;
     }
     .code-block {
       position: relative;
