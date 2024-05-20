@@ -1,0 +1,44 @@
+{
+  "title": "Shell Script",
+  "description": "This is a shell script that can be used to run a series of tools in a specific order. It is capable of running multiple tools in sequence and can be used to orchestrate the execution of multiple tools in a specific order.",
+  "tools": [
+    {
+      "title": "shell-script, edit and execute",
+      "description": "Display shell script snippet and allow to execute them in the browser. Use it to display fenced code blocks of the following shell script languages: bash, cmd, powershell, python.",
+      "specification": {
+        "input_schema": {
+          "$id": "https://raw.githubusercontent.com/langware-labs/components/main/shell-script/src/schema.json",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "title": "shell-script",
+          "description": "A shell script snippet",
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string",
+              "description": "The content of the shell script snippet"
+            },
+            "type": {
+              "type": "string",
+              "enum": ["bash", "powershell", "cmd", "python"],
+              "description": "The type of the shell script snippet content"
+            }
+          },
+          "required": ["content", "type"],
+          "additionalProperties": false,
+          "x-prompt": "Prettify the provided script.\nThe supported shell scripts are: bash, cmd, powershell, python.\nUse escape character for new lines, quotes and double quotes.\nExample:\n{\n  \"type\": \"python\"\n  \"content\": \"print('Hello, World!')\",\n}"
+        },
+        "output_schema": {},
+        "success_condition": ""
+      },
+      "environment": {
+        "who": "client",
+        "where": "block execution",
+        "what": {
+          "importPath": "https://langware-labs.github.io/components/shell-script/shell-script.bundled.js",
+          "webComponentName": "shell-script",
+          "webComponentAttributeName": "data"
+        }
+      }
+    }
+  ]
+}
