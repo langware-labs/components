@@ -32,8 +32,8 @@
       },
       "environment": {
         "who": "client",
-        "where": "block execution",
-        "what": {
+        "what": "block execution",
+        "environment_info": {
           "importPath": "https://langware-labs.github.io/components/shell-script/shell-script.bundled.js",
           "webComponentName": "shell-script",
           "webComponentAttributeName": "data"
