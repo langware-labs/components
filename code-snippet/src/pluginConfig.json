@@ -1,0 +1,54 @@
+{
+  "title": "Code Snippet",
+  "description": "A collection of tools to interact with a code snippet.",
+  "tools": [
+    {
+      "title": "code-snippet, edit and execute",
+      "description": "Display code snippets and allow to execute them in the browser. Use it to display fenced code blocks of the following coding languages: html, javascript, css.",
+      "specification": {
+        "input_schema": {
+          "$id": "https://raw.githubusercontent.com/langware-labs/components/main/code-snippet/src/schema.json",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "title": "code-snippet",
+          "description": "A code snippet",
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "description": "The content of the code snippet"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": ["html", "css", "javascript"],
+                    "description": "The type of the code snippet content"
+                  }
+                },
+                "required": ["content", "type"],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": ["items"],
+          "additionalProperties": false,
+          "x-prompt": "The result should always be an array, even in case of a single element.\nEach element in the array should represent a different programming language.\nThe supported programming languages are: html, javascript, css.\nAggregate related code blocks in a single array.\nPrettify the provided code elements.\nUse escape character for new lines, quotes and double quotes.\nAlways return \"type\" before \"content\".\nExample:\n{\n  \"items\": [\n    {\n      \"type\": \"html\"\n      \"content\": \"<!DOCTYPE html>\\n<html>\\n  <head>\\n    <title>Hello World</title>\\n  </head>\\n  <body>\\n    <h1>Hello, World!</h1>\\n  </body>\\n</html>\\n\",\n    },\n    {\n      \"type\": \"js\"\n      \"content\": \"console.log('Hello World');\",\n    },\n    {\n      \"type\": \"css\"\n      \"content\": \"h1 {color: blue;}\",\n    }\n  ]\n}"
+        },
+        "output_schema": {},
+        "success_condition": ""
+      },
+      "environment": {
+        "who": "client",
+        "what": "block execution",
+        "environment_info": {
+          "importPath": "https://langware-labs.github.io/components/code-snippet/code-snippet.bundled.js",
+          "webComponentName": "code-snippet",
+          "webComponentAttributeName": "data"
+        }
+      }
+    }
+  ]
+}
