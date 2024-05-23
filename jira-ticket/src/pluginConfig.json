@@ -1,0 +1,39 @@
+{
+  "title": "Jira",
+  "description": "A collection of tools to interact with Jira.",
+  "tools": [
+    {
+      "title": "jira-ticket view component",
+      "description": "A web component to display jira ticket.",
+      "specification": {
+        "input_schema": {
+          "$id": "https://raw.githubusercontent.com/langware-labs/components/main/jira-ticket/src/schema.json",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "title": "jira-ticket",
+          "description": "A Jira ticket view component",
+          "type": "object",
+          "properties": {
+            "jiraKey": {
+              "type": "string",
+              "description": "The jira ticket key"
+            }
+          },
+          "required": [],
+          "additionalProperties": true,
+          "x-prompt": "Provide optional link to jira ticket. Don't provide jiraKey if its not relevant."
+        },
+        "output_schema": {},
+        "success_condition": ""
+      },
+      "environment": {
+        "who": "client",
+        "what": "block execution",
+        "environment_info": {
+          "importPath": "https://langware-labs.github.io/components/jira-ticket/jira-ticket.bundled.js",
+          "webComponentName": "jira-ticket",
+          "webComponentAttributeName": "data"
+        }
+      }
+    }
+  ]
+}
