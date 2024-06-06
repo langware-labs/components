@@ -27,7 +27,7 @@
         "who": "client",
         "what": "block execution",
         "environment_info": {
-          "importPath": "https://cdn.jsdelivr.net/gh/langware-labs/components@VERSION/jira-ticket/docs/jira-ticket.bundled.min.js",
+          "importPath": "https://cdn.jsdelivr.net/gh/langware-labs/components@0.1.0/jira-ticket/docs/jira-ticket.bundled.min.js",
           "webComponentName": "jira-ticket",
           "webComponentAttributeName": "data"
         }
