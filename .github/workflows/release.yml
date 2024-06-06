@@ -1,0 +1,107 @@
+name: Build, Commit, Tag, and Release
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number for the release (format: vX.X.X)'
+        required: true
+      is_release:
+        description: 'Is this a release?'
+        required: false
+        default: false
+      prerelease:
+        description: 'Is this a pre-release?'
+        required: false
+        default: true
+      is_draft:
+        description: 'Is this a draft?'
+        required: false
+        default: false
+
+permissions:
+  contents: write  # Allows the workflow to push commits and tags
+  issues: write
+  id-token: write  # Necessary for creating OIDC tokens for Google Cloud authentication
+
+jobs:
+  build_tag_release:
+    runs-on: ubuntu-latest
+    env:
+      VERSION: 'v0.1.0'
+      IS_RELEASE: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate version format
+        run: |
+          if [[ ! "${{ env.VERSION }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Version format is incorrect. Please use the format 'vX.X.X'."
+            exit 1
+          fi
+
+      - name: Check if version already exists
+        run: |
+          if git rev-parse "${{ env.VERSION }}" >/dev/null 2>&1; then
+            echo "Version ${{ env.VERSION }} already exists. Please use a new version."
+            exit 1
+          fi
+
+#      - name: Extract branch name and set environment variables
+#        run: |
+#          echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+#          echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+#          echo "IS_RELEASE=${{ github.event.inputs.is_release }}" >> $GITHUB_ENV
+#          if [ "${{ github.event.inputs.is_release }}" == "true" ]; then
+#            echo "PRE_RELEASE=${{ github.event.inputs.prerelease }}" >> $GITHUB_ENV
+#            echo "IS_DRAFT=${{ github.event.inputs.is_draft }}" >> $GITHUB_ENV
+#          fi
+
+      - name: Use branch name
+        run: |
+          echo "The current branch is $BRANCH_NAME"
+
+      - name: Create and switch to a new branch
+        run: |
+          NEW_BRANCH="release-$(date +'%Y%m%d-%H%M%S')"
+          echo "NEW_BRANCH=$NEW_BRANCH" >> $GITHUB_ENV
+          echo "Creating branch $NEW_BRANCH"
+          git status
+          git checkout -b $NEW_BRANCH
+          git push -u origin $NEW_BRANCH
+
+      - name: Replace VERSION occurrences with the semantic version
+        run: |
+          SEMANTIC_VERSION=$(echo ${{ env.VERSION }} | cut -c 2-)
+          find . -type f -name '*.json' -exec sed -i "s/VERSION/${SEMANTIC_VERSION}/g" {} +
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git commit -am "Update version to v${SEMANTIC_VERSION}"
+
+      - name: Create Git tag
+        run: |
+          TAG_NAME=${{ env.VERSION }}
+          git tag -a $TAG_NAME -m "Tag Created by github-actions Tag: $TAG_NAME"
+          git push origin $TAG_NAME
+
+      - name: Delete the branch
+        if: always()
+        run: |
+          echo "Deleting branch $NEW_BRANCH"
+          git push origin --delete $NEW_BRANCH
+
+      - name: Create GitHub Release
+        if: github.ref == 'refs/heads/main' && env.IS_RELEASE == 'true'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.VERSION }}
+          release_name: ${{ env.VERSION }}
+          draft: ${{ env.IS_DRAFT }}
+          prerelease: ${{ env.PRE_RELEASE }}
