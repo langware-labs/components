@@ -7,8 +7,6 @@
       "description": "Display shell script snippet and allow to execute them in the browser. Use it to display fenced code blocks of the following shell script languages: bash, cmd, powershell, python.",
       "specification": {
         "input_schema": {
-          "$id": "https://raw.githubusercontent.com/langware-labs/components/main/shell-script/src/schema.json",
-          "$schema": "https://json-schema.org/draft/2020-12/schema",
           "title": "shell-script",
           "description": "A shell script snippet",
           "type": "object",
@@ -34,7 +32,7 @@
         "who": "client",
         "what": "block execution",
         "environment_info": {
-          "importPath": "https://langware-labs.github.io/components/shell-script/shell-script.bundled.js",
+          "importPath": "https://cdn.jsdelivr.net/gh/langware-labs/components@VERSION/shell-script/docs/shell-script.bundled.min.js",
           "webComponentName": "shell-script",
           "webComponentAttributeName": "data"
         }
