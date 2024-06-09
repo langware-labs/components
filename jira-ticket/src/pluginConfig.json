@@ -7,8 +7,6 @@
       "description": "A web component to display jira ticket.",
       "specification": {
         "input_schema": {
-          "$id": "https://raw.githubusercontent.com/langware-labs/components/main/jira-ticket/src/schema.json",
-          "$schema": "https://json-schema.org/draft/2020-12/schema",
           "title": "jira-ticket",
           "description": "A Jira ticket view component",
           "type": "object",
@@ -29,7 +27,7 @@
         "who": "client",
         "what": "block execution",
         "environment_info": {
-          "importPath": "https://langware-labs.github.io/components/jira-ticket/jira-ticket.bundled.js",
+          "importPath": "https://cdn.jsdelivr.net/gh/langware-labs/components@VERSION/jira-ticket/docs/jira-ticket.bundled.min.js",
           "webComponentName": "jira-ticket",
           "webComponentAttributeName": "data"
         }

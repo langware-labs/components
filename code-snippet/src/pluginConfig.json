@@ -7,8 +7,6 @@
       "description": "Display code snippets and allow to execute them in the browser. Use it to display fenced code blocks of the following coding languages: html, javascript, css.",
       "specification": {
         "input_schema": {
-          "$id": "https://raw.githubusercontent.com/langware-labs/components/main/code-snippet/src/schema.json",
-          "$schema": "https://json-schema.org/draft/2020-12/schema",
           "title": "code-snippet",
           "description": "A code snippet",
           "type": "object",
@@ -44,7 +42,7 @@
         "who": "client",
         "what": "block execution",
         "environment_info": {
-          "importPath": "https://langware-labs.github.io/components/code-snippet/code-snippet.bundled.js",
+          "importPath": "https://cdn.jsdelivr.net/gh/langware-labs/components@VERSION/code-snippet/docs/code-snippet.bundled.min.js",
           "webComponentName": "code-snippet",
           "webComponentAttributeName": "data"
         }
