@@ -2,15 +2,18 @@
 // See https://www.ietf.org/archive/id/draft-meyerzuselha-oauth-web-message-response-mode-00.html
 import {LitElement, html, css} from 'lit';
 import { customElement, query } from 'lit/decorators.js';
-import {SlTree, SlButton, SlTreeItem} from "@shoelace-style/shoelace";
+import {SlTree, SlButton, SlTreeItem, SlSkeleton} from "@shoelace-style/shoelace";
 import '@shoelace-style/shoelace/dist/components/tree/tree.js';
 import '@shoelace-style/shoelace/dist/components/tree-item/tree-item.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/icon-button/icon-button.js';
+import '@shoelace-style/shoelace/dist/components/skeleton/skeleton.js';
+import { toolCommunicator } from "./sdk/services/toolCommunicationService";
 
 @customElement('jira-ticket')
 export class JiraTicket extends LitElement {
   @query('sl-button.auth') authButton!: SlButton;
+  @query('sl-skeleton') skeleton!: SlSkeleton;
   @query('sl-tree') tasksTree!: SlTree;
 
   static override styles = css`
@@ -27,6 +30,7 @@ export class JiraTicket extends LitElement {
       display: flex;
       flex-direction: row;
       width: 100%;
+      gap: 1rem;
       justify-content: space-between;
     }
       
@@ -48,6 +52,7 @@ export class JiraTicket extends LitElement {
   override render() {
     return html`
       <sl-button class="auth" @click="${this.auth}">Connect Jira</sl-button>
+      <sl-skeleton effect="pulse"></sl-skeleton>
       <sl-tree selection="leaf" @sl-selection-change=${this.onSelectionChange}>
 <!--        <sl-tree-item>-->
 <!--          <div>My Jira Tickets</div>-->
@@ -67,24 +72,20 @@ export class JiraTicket extends LitElement {
   }
 
   private async taskSelected(treeItem: SlTreeItem) {
-    console.log(treeItem.dataset.key);
-    const data: any = await this.apiClient.post(`/graph/atlassian-start-task-conversation`, {
-      "task_key": treeItem.dataset.key
-    });
-    console.log(data);
+    toolCommunicator.sendMessage(this.dataset.id!, 'task:' + treeItem.dataset.id);
   }
 
-  private createTreeItem(issue: any) {
+  private createTreeItem(task: any) {
     const treeItem = document.createElement('sl-tree-item');
     const treeItemSummery = document.createElement('div');
     const treeItemStatus = document.createElement('div');
     const treeItemLink = document.createElement('sl-icon-button');
-    treeItem.dataset.key = issue.key;
-    treeItemSummery.innerText = issue.fields.summary;
-    treeItemStatus.innerText = issue.fields.status.name;
+    treeItem.dataset.id = task.id;
+    treeItemSummery.innerText = task.title;
+    treeItemStatus.innerText = task.status;
     treeItemLink.name = 'box-arrow-up-right';
     // Find a better way to get the project link.
-    treeItemLink.href = "https://langware.atlassian.net/browse/" + issue.key;
+    treeItemLink.href = "https://langware.atlassian.net/browse/" + task.foreign_id;
     treeItemLink.target = '_blank';
     treeItem.append(treeItemSummery);
     treeItemStatus.append(treeItemLink);
@@ -93,25 +94,38 @@ export class JiraTicket extends LitElement {
   }
 
   private async getMyTickets() {
-    const data: any = await this.apiClient.get(`/graph/atlassian-my-tasks`);
-    const issues: any[] = data.issues;
+    const tasks: any = await this.apiClient.get(`/graph/atlassian-my-tasks`);
+    this.skeleton.style.display = "none";
 
     let taskToSelect!: SlTreeItem;
-    for (const issue of issues) {
-      // Skip if the issue is already done.
-      if (issue.fields.status.name === 'Done') {
+    for (const task of tasks) {
+      // Skip if the task is already done.
+      if (task.status === 'Done' || task.task_type === 'Subtask') {
         continue;
       }
-      // Create a tree item for the issue.
-      const treeItem = this.createTreeItem(issue);
-      if (issue.fields.subtasks) {
+      // Create a tree item for the task.
+      const treeItem = this.createTreeItem(task);
+      if (task.subtasks) {
         // Sort subtasks by status.
-        issue.fields.subtasks.sort((a: any, b: any) => {
-          return a.fields.status.id < b.fields.status.id
+        const statusMap: { [key: string]: number } = {
+          'Backlog': -1,
+          'To Do': 0,
+          'In Progress': 1,
+          'Done': 2
+        };
+        task.subtasks.sort((a: any, b: any) => {
+          const aTask = tasks.find((t: any) => t.id === a)
+          const bTask = tasks.find((t: any) => t.id === b)
+          if (!aTask || !bTask) {
+            return ;
+          }
+          return statusMap[aTask.status] < statusMap[bTask.status]
         });
-
-        for (const subtask of issue.fields.subtasks) {
-          if (subtask.fields.status.name === 'Done') {
+        // Create tree items for subtasks.
+        for (const subtask_id of task.subtasks) {
+          const subtask = tasks.find((t: any) => t.id === subtask_id);
+          if (!subtask || subtask.status === 'Done') {
+            // Subtask may not be found if it doesn't belong to the user.
             continue;
           }
 
