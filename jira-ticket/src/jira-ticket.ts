@@ -94,7 +94,8 @@ export class JiraTicket extends LitElement {
   }
 
   private async getMyTickets() {
-    const tasks: any = await this.apiClient.get(`/graph/atlassian-my-tasks`);
+    await this.apiClient.get(`/graph/atlassian-my-tasks`);
+    const tasks: any = await this.apiClient.get(`/graph/task`);
     this.skeleton.style.display = "none";
 
     let taskToSelect!: SlTreeItem;
@@ -114,16 +115,17 @@ export class JiraTicket extends LitElement {
           'Done': 2
         };
         task.subtasks.sort((a: any, b: any) => {
-          const aTask = tasks.find((t: any) => t.id === a)
-          const bTask = tasks.find((t: any) => t.id === b)
+          const aTask = tasks.find((t: any) => t.foreign_id === a)
+          const bTask = tasks.find((t: any) => t.foreign_id === b)
           if (!aTask || !bTask) {
             return ;
           }
-          return statusMap[aTask.status] < statusMap[bTask.status]
+          // Not sure why this is not enough: return statusMap[bTask.status] < statusMap[aTask.status]
+          return statusMap[bTask.status].toLocaleString().localeCompare(statusMap[aTask.status].toLocaleString())
         });
         // Create tree items for subtasks.
         for (const subtask_id of task.subtasks) {
-          const subtask = tasks.find((t: any) => t.id === subtask_id);
+          const subtask = tasks.find((t: any) => t.foreign_id === subtask_id);
           if (!subtask || subtask.status === 'Done') {
             // Subtask may not be found if it doesn't belong to the user.
             continue;
