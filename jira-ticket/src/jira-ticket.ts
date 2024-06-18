@@ -46,6 +46,7 @@ export class JiraTicket extends LitElement {
       await this.getMyTickets();
     } else {
       this.authButton.style.display = "block";
+      this.skeleton.style.display = "none";
     }
   }
 
@@ -161,6 +162,7 @@ export class JiraTicket extends LitElement {
         popup?.close();
         // Hide the connect button and get the tickets.
         this.authButton.style.display = "none";
+        this.skeleton.style.display = "block";
         this.getMyTickets();
       }
     }
