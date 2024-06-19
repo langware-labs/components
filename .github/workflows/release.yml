@@ -68,6 +68,27 @@ jobs:
           git checkout -b $NEW_BRANCH
           git push -u origin $NEW_BRANCH
 
+      - name: Run npm build (code-snippet)
+        run: |
+          echo $VITE_API_URL
+          npm run build --if-present
+        shell: bash
+        working-directory: ./code-snippet
+
+      - name: Run npm build (jira-ticket)
+        run: |
+          echo $VITE_API_URL
+          npm run build --if-present
+        shell: bash
+        working-directory: ./jira-ticket
+
+      - name: Run npm build (shell-script)
+        run: |
+          echo $VITE_API_URL
+          npm run build --if-present
+        shell: bash
+        working-directory: ./shell-script
+
       - name: Replace VERSION occurrences with the semantic version
         run: |
           SEMANTIC_VERSION=$(echo ${{ env.VERSION }} | cut -c 2-)
