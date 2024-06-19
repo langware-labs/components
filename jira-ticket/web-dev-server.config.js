@@ -5,6 +5,7 @@
  */
 
 import {legacyPlugin} from '@web/dev-server-legacy';
+import proxy from 'koa-proxies';
 
 const mode = process.env.MODE || 'dev';
 if (!['dev', 'prod'].includes(mode)) {
@@ -20,6 +21,11 @@ export default {
         // Manually imported in index.html file
         webcomponents: false,
       },
+    }),
+  ],
+  middleware: [
+    proxy('/api/', {
+      target: 'http://localhost:8000/',
     }),
   ],
 };
