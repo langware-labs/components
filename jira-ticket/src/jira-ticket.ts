@@ -95,7 +95,7 @@ export class JiraTicket extends LitElement {
   }
 
   private async getMyTickets() {
-    await this.apiClient.get(`/graph/atlassian-my-tasks`);
+    await this.apiClient.get(`/graph/atlassian-get-tasks`);
     const tasks: any = await this.apiClient.get(`/graph/task`);
     this.skeleton.style.display = "none";
 
