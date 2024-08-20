@@ -8,6 +8,7 @@ import {javascript as jsLang} from '@codemirror/lang-javascript';
 import {css as cssLang} from '@codemirror/lang-css';
 import {oneDark} from '@codemirror/theme-one-dark';
 import {basicSetup} from 'codemirror';
+import toolCommunicator from './sdk/toolCommunicationService';
 
 @customElement('code-snippet')
 export class CodeSnippet extends LitElement {
@@ -116,6 +117,11 @@ export class CodeSnippet extends LitElement {
         EditorView.updateListener.of((update) => {
           if (update.docChanged) {
             const code = update.state.doc.toString();
+            const index = this.data.items.findIndex(
+              (item) => item.type === this.selectedTab
+            );
+            this.data.items[index].content = code;
+
             switch (this.selectedTab) {
               case 'html':
                 this.htmlCode = code;
@@ -127,6 +133,11 @@ export class CodeSnippet extends LitElement {
                 this.cssCode = code;
                 break;
             }
+
+            toolCommunicator.sendMessage(this.dataset.id!, {
+              event: 'content-update',
+              data: this.data,
+            });
           }
         }),
       ],
@@ -208,7 +219,7 @@ export class CodeSnippet extends LitElement {
     <script>${this.customConsoleReportJs}</script>
     <script>${this.jsCode}</script>`;
   }
-  
+
   async runCode() {
     const code = this.getCode();
     this.addToContext(code);
@@ -232,33 +243,31 @@ export class CodeSnippet extends LitElement {
 
   async addToContext(contextStr: string) {
     try {
-      // TODO: Replace with a SDK call that knows that chat ID.
-      const chatTypeId = this.closestCrossShadowBoundary('[chat]')?.getAttribute('chat');
-      const chatId = chatTypeId?.split(':')[1];
-      const response = await fetch(
-        '/api/v1/graph/context',
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            role: 'machine',
-            content: contextStr,
-            chat_id: chatId
-          }),
-          credentials: 'include'
-        }
-      );
+      const response = await fetch('/api/v1/graph/context', {
+        method: 'POST',
+        body: JSON.stringify({
+          role: 'machine',
+          content: contextStr,
+          block_id: this.dataset.id,
+        }),
+        credentials: 'include',
+      });
       console.assert(200 === response.status, 'Failed to add to context');
     } catch (error) {
       console.error('Failed to add to context', error);
     }
   }
 
-  private closestCrossShadowBoundary(selector: string, element: Element = this): Element | null {
+  private closestCrossShadowBoundary(
+    selector: string,
+    element: Element = this
+  ): Element | null {
     while (element) {
       if (element.matches(selector)) {
         return element;
       }
-      element = element.parentElement || (element.getRootNode() as ShadowRoot).host;
+      element =
+        element.parentElement || (element.getRootNode() as ShadowRoot).host;
     }
     return null;
   }
