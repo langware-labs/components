@@ -258,20 +258,6 @@ export class CodeSnippet extends LitElement {
     }
   }
 
-  private closestCrossShadowBoundary(
-    selector: string,
-    element: Element = this
-  ): Element | null {
-    while (element) {
-      if (element.matches(selector)) {
-        return element;
-      }
-      element =
-        element.parentElement || (element.getRootNode() as ShadowRoot).host;
-    }
-    return null;
-  }
-
   override render() {
     return html`
       <div @click="${this.selectTab}">
