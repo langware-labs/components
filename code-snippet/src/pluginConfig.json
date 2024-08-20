@@ -3,8 +3,8 @@
   "description": "A collection of tools to interact with a code snippet.",
   "tools": [
     {
-      "title": "code-snippet, edit and execute",
-      "description": "Display code snippets and allow to execute them in the browser. Use it to display fenced code blocks of the following coding languages: html, javascript, css.",
+      "title": "Code Snippet Viewer",
+      "description": "Display code snippets and allow to execute them in the browser. Only use when the user explicitly states he want to execute the code snippet in his last message.",
       "specification": {
         "input_schema": {
           "title": "code-snippet",
