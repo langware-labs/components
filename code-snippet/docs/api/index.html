@@ -91,6 +91,37 @@
          <td>languageCompartment</td><td></td><td></td><td></td><td>new Compartment()</td>
        </tr>
      
+       <tr>
+         <td>customConsoleReportJs</td><td></td><td></td><td></td><td>`
+    const flowpad_addToContext = function() {
+      parent.document.querySelector('code-snippet').addToContext(JSON.stringify(arguments));
+    }
+    console.defaultLog = console.log.bind(console);
+    console.log = function(){
+      flowpad_addToContext({"type":"log", "datetime":Date().toLocaleString(), "value":Array.from(arguments)});
+      console.defaultLog.apply(console, arguments);
+    }
+    console.defaultError = console.error.bind(console);
+    console.error = function(){
+      flowpad_addToContext({"type":"error", "datetime":Date().toLocaleString(), "value":Array.from(arguments)});
+      console.defaultError.apply(console, arguments);
+    }
+    console.defaultWarn = console.warn.bind(console);
+    console.warn = function(){
+      flowpad_addToContext({"type":"warn", "datetime":Date().toLocaleString(), "value":Array.from(arguments)});
+      console.defaultWarn.apply(console, arguments);
+    }
+    console.defaultDebug = console.debug.bind(console);
+    console.debug = function(){
+      flowpad_addToContext({"type":"debug", "datetime":Date().toLocaleString(), "value":Array.from(arguments)});
+      console.defaultDebug.apply(console, arguments);
+    }
+    window.onerror = function (error, url, line, column, stack) { 
+      flowpad_addToContext(error, url, line, column, stack);
+    };
+  `</td>
+       </tr>
+     
    </table>
    
        
@@ -185,7 +216,27 @@
        </tr>
      
        <tr>
+         <td>getCode</td><td></td><td></td><td></td>
+       </tr>
+     
+       <tr>
          <td>runCode</td><td></td><td></td><td></td>
+       </tr>
+     
+       <tr>
+         <td>addToContext</td><td>
+   
+   <table>
+     <tr>
+       <th>Name</th><th>Description</th><th>Type</th>
+     </tr>
+     
+       <tr>
+         <td>contextStr</td><td></td><td>string</td>
+       </tr>
+     
+   </table>
+ </td><td></td><td></td>
        </tr>
      
    </table>
