@@ -11,3 +11,4 @@ code-snippet.d.ts.map
 
 # generated for size check and in docs
 #code-snippet.bundled.js
+sdk/
