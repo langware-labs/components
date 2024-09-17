@@ -1,4 +1,5 @@
 {
+  "type": "plugin",
   "title": "Code Snippet",
   "description": "A collection of tools to interact with a code snippet.",
   "tools": [

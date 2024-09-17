@@ -1,4 +1,5 @@
 {
+  "type": "plugin",
   "title": "Jira",
   "description": "A collection of tools to interact with Jira.",
   "tools": [
