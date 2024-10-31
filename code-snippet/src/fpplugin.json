@@ -1,8 +1,8 @@
 {
   "type": "plugin",
   "title": "Code Snippet",
-  "description": "A collection of tools to interact with a code snippet.",
-  "tools": [
+  "description": "A collection of funcs to interact with a code snippet.",
+  "funcs": [
     {
       "title": "Code Snippet Viewer",
       "description": "Display code snippets and allow to execute them in the browser. Only use when the user explicitly states he want to execute the code snippet in his last message.",

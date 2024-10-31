@@ -1,8 +1,8 @@
 {
   "type": "plugin",
   "title": "Jira",
-  "description": "A collection of tools to interact with Jira.",
-  "tools": [
+  "description": "A collection of funcs to interact with Jira.",
+  "funcs": [
     {
       "title": "jira-ticket view component",
       "description": "A web component to display jira ticket.",

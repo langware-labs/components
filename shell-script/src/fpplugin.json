@@ -1,8 +1,8 @@
 {
   "type": "plugin",
   "title": "Shell Script",
-  "description": "This is a shell script that can be used to run a series of tools in a specific order. It is capable of running multiple tools in sequence and can be used to orchestrate the execution of multiple tools in a specific order.",
-  "tools": [
+  "description": "This is a shell script that can be used to run a series of funcs in a specific order. It is capable of running multiple funcs in sequence and can be used to orchestrate the execution of multiple funcs in a specific order.",
+  "funcs": [
     {
       "title": "shell-script, edit and execute",
       "description": "Display shell script snippet and allow to execute them in the browser. Use it to display fenced code blocks of the following shell script languages: bash, cmd, powershell, python.",
