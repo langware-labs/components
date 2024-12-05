@@ -6,47 +6,42 @@
     {
       "title": "Code Snippet Viewer",
       "description": "Display code snippets and allow to execute them in the browser. Only use when the user explicitly states he want to execute the code snippet in his last message.",
-      "specification": {
-        "input_schema": {
-          "title": "code-snippet",
-          "description": "A code snippet",
-          "type": "object",
-          "properties": {
+      "input_schema": {
+        "title": "code-snippet",
+        "description": "A code snippet",
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
             "items": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "content": {
-                    "type": "string",
-                    "description": "The content of the code snippet"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": ["html", "css", "javascript"],
-                    "description": "The type of the code snippet content"
-                  }
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "string",
+                  "description": "The content of the code snippet"
                 },
-                "required": ["content", "type"],
-                "additionalProperties": false
-              }
+                "type": {
+                  "type": "string",
+                  "enum": ["html", "css", "javascript"],
+                  "description": "The type of the code snippet content"
+                }
+              },
+              "required": ["content", "type"],
+              "additionalProperties": false
             }
-          },
-          "required": ["items"],
-          "additionalProperties": false,
-          "x-prompt": "The result should always be an array, even in case of a single element.\nEach element in the array should represent a different programming language.\nThe supported programming languages are: html, javascript, css.\nAggregate related code blocks in a single array.\nPrettify the provided code elements.\nUse escape character for new lines, quotes and double quotes.\nAlways return \"type\" before \"content\".\nExample:\n{\n  \"items\": [\n    {\n      \"type\": \"html\"\n      \"content\": \"<!DOCTYPE html>\\n<html>\\n  <head>\\n    <title>Hello World</title>\\n  </head>\\n  <body>\\n    <h1>Hello, World!</h1>\\n  </body>\\n</html>\\n\",\n    },\n    {\n      \"type\": \"js\"\n      \"content\": \"console.log('Hello World');\",\n    },\n    {\n      \"type\": \"css\"\n      \"content\": \"h1 {color: blue;}\",\n    }\n  ]\n}"
+          }
         },
-        "output_schema": {},
-        "success_condition": ""
+        "required": ["items"],
+        "additionalProperties": false,
+        "x-prompt": "The result should always be an array, even in case of a single element.\nEach element in the array should represent a different programming language.\nThe supported programming languages are: html, javascript, css.\nAggregate related code blocks in a single array.\nPrettify the provided code elements.\nUse escape character for new lines, quotes and double quotes.\nAlways return \"type\" before \"content\".\nExample:\n{\n  \"items\": [\n    {\n      \"type\": \"html\"\n      \"content\": \"<!DOCTYPE html>\\n<html>\\n  <head>\\n    <title>Hello World</title>\\n  </head>\\n  <body>\\n    <h1>Hello, World!</h1>\\n  </body>\\n</html>\\n\",\n    },\n    {\n      \"type\": \"js\"\n      \"content\": \"console.log('Hello World');\",\n    },\n    {\n      \"type\": \"css\"\n      \"content\": \"h1 {color: blue;}\",\n    }\n  ]\n}"
       },
-      "environment": {
-        "who": "client",
-        "what": "block execution",
-        "environment_info": {
-          "importPath": "https://cdn.jsdelivr.net/gh/langware-labs/components@VERSION/code-snippet/docs/code-snippet.bundled.min.js",
-          "webComponentName": "code-snippet",
-          "webComponentAttributeName": "data"
-        }
+      "output_schema": {},
+      "executor": "client",
+      "capability": "web-component",
+      "capability_config": {
+        "importPath": "https://cdn.jsdelivr.net/gh/langware-labs/components@VERSION/code-snippet/docs/code-snippet.bundled.min.js",
+        "webComponentName": "code-snippet",
+        "webComponentAttributeName": "data"
       }
     }
   ]

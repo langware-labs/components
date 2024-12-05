@@ -6,37 +6,32 @@
     {
       "title": "shell-script, edit and execute",
       "description": "Display shell script snippet and allow to execute them in the browser. Use it to display fenced code blocks of the following shell script languages: bash, cmd, powershell, python.",
-      "specification": {
-        "input_schema": {
-          "title": "shell-script",
-          "description": "A shell script snippet",
-          "type": "object",
-          "properties": {
-            "content": {
-              "type": "string",
-              "description": "The content of the shell script snippet"
-            },
-            "type": {
-              "type": "string",
-              "enum": ["bash", "powershell", "cmd", "python"],
-              "description": "The type of the shell script snippet content"
-            }
+      "input_schema": {
+        "title": "shell-script",
+        "description": "A shell script snippet",
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "description": "The content of the shell script snippet"
           },
-          "required": ["content", "type"],
-          "additionalProperties": false,
-          "x-prompt": "Prettify the provided script.\nThe supported shell scripts are: bash, cmd, powershell, python.\nUse escape character for new lines, quotes and double quotes.\nExample:\n{\n  \"type\": \"python\"\n  \"content\": \"print('Hello, World!')\",\n}"
+          "type": {
+            "type": "string",
+            "enum": ["bash", "powershell", "cmd", "python"],
+            "description": "The type of the shell script snippet content"
+          }
         },
-        "output_schema": {},
-        "success_condition": ""
+        "required": ["content", "type"],
+        "additionalProperties": false,
+        "x-prompt": "Prettify the provided script.\nThe supported shell scripts are: bash, cmd, powershell, python.\nUse escape character for new lines, quotes and double quotes.\nExample:\n{\n  \"type\": \"python\"\n  \"content\": \"print('Hello, World!')\",\n}"
       },
-      "environment": {
-        "who": "client",
-        "what": "block execution",
-        "environment_info": {
-          "importPath": "https://cdn.jsdelivr.net/gh/langware-labs/components@VERSION/shell-script/docs/shell-script.bundled.min.js",
-          "webComponentName": "shell-script",
-          "webComponentAttributeName": "data"
-        }
+      "output_schema": {},
+      "executor": "client",
+      "capability": "web-component",
+      "capability_config": {
+        "importPath": "https://cdn.jsdelivr.net/gh/langware-labs/components@VERSION/shell-script/docs/shell-script.bundled.min.js",
+        "webComponentName": "shell-script",
+        "webComponentAttributeName": "data"
       }
     }
   ]
