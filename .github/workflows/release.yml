@@ -76,14 +76,6 @@ jobs:
         shell: bash
         working-directory: ./code-snippet
 
-      - name: Run npm build (jira-ticket)
-        run: |
-          npm install
-          npm run build --if-present
-          npm run docs --if-present
-        shell: bash
-        working-directory: ./jira-ticket
-
       - name: Run npm build (shell-script)
         run: |
           npm install
