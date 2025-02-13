@@ -181,7 +181,7 @@ export class CodeSnippet extends LitElement {
       case 'html':
         this.htmlCode = content;
         break;
-      case 'javascript':
+      case 'js':
         this.jsCode = content;
         break;
       case 'css':
