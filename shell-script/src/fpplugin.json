@@ -32,7 +32,7 @@
       "executor": "client",
       "capability": "web-component",
       "capability_config": {
-        "importPath": "https://cdn.jsdelivr.net/gh/langware-labs/components@VERSION/shell-script/docs/shell-script.bundled.min.js",
+        "importPath": "https://cdn.jsdelivr.net/gh/langware-labs/components@0.1.13/shell-script/docs/shell-script.bundled.min.js",
         "webComponentName": "shell-script",
         "webComponentAttributeName": "data"
       }
