@@ -1,4 +1,5 @@
 {
+  "version": "0.0.1",
   "type": "plugin",
   "title": "Shell Script",
   "description": "This is a shell script that can be used to run a series of funcs in a specific order. It is capable of running multiple funcs in sequence and can be used to orchestrate the execution of multiple funcs in a specific order.",
